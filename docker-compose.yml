@@ -16,7 +16,6 @@ services:
       - ./dist:/usr/share/nginx/html
     ports:
       - "3001:8008"
-      - "443:443"
 
     networks:
       - app-network
