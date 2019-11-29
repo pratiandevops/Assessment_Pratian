@@ -32,3 +32,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 1. ng build --prod
 2. docker-compose build
 3. docker-compose up
+
+## Tools Version
+
+1. angular-cli : 8.3.19
+2. node : 12.13.1
+3. npm : 6.12.1
