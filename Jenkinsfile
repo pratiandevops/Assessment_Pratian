@@ -1,5 +1,5 @@
 pipeline{
-          agent (label, Ubuntu)
+	agent {label 'Ubuntu'}
           parameters{
 		booleanParam(name: 'Release', defaultValue: false, description: 'Approval Will push code to Live' )
 	  }
