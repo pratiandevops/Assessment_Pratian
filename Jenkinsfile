@@ -20,7 +20,7 @@ pipeline{
 					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
 					script {
-						nginxImage= docker-compose $registry:$BUILD_NUMBER build'
+						nginxImage= docker-compose $registry:$BUILD_NUMBER build
 					}
 				}
                 }
