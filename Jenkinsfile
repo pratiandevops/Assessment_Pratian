@@ -19,7 +19,7 @@ pipeline{
 					echo 'Executing Build'
 					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
-					sh 'docker-compose -p $registry:$BUILD_NUMBER build'
+					sh 'docker-compose -t $registry:$BUILD_NUMBER build'
 				}
                 }
 		stage('Push Image to Registory') {
