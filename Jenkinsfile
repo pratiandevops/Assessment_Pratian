@@ -46,7 +46,7 @@ pipeline{
                 stage('Release'){
 			steps{
 				sh 'docker-compose stop'
-				sh 'docker-compose up'
+				sh 'docker-compose up -d'
 			}
 		}
                 //stage('Notification')
