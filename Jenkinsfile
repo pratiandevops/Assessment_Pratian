@@ -3,6 +3,11 @@ pipeline{
           parameters{
 		booleanParam(name: 'Release', defaultValue: false, description: 'Approval Will push code to Live' )
 	  }
+	  environment {
+                nginxImage = ''
+                registry = "vmady/assesment_pratian"
+                registryCredential = 'docker-hub-credentials'
+       	  }
           stages{
         	stage('Checkout'){
                 	steps{
@@ -17,8 +22,23 @@ pipeline{
     					sh 'docker-compose build'
 				}
                 }
+		stage('Push Image to Registory') {
+                                                steps{
+                                                        script {
+                                                                docker.withRegistry( '', registryCredential ) {
+                                                                        nginx.push()
+                                                                }
+                                                        }
+                                                }
+                }
+                stage('Remove Unused docker image') {
+                                                steps{
+                                                        sh "docker rmi $registry:$BUILD_NUMBER"
+                                                }
+                }
                 //stage('Artifactory'){
-
+		//			echo 'Creating Artifacts'
+		//			archiveArtifacts ''
 		//}
        		//stage('Approval'){
 
