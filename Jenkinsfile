@@ -16,15 +16,15 @@ pipeline{
     					sh 'docker-compose build'
 				}
                 }
-                stage('Artifactory'){
+                //stage('Artifactory'){
 
-		}
-       		stage('Approval'){
+		//}
+       		//stage('Approval'){
 
-		}
-                stage('Release'){
+		//}
+                //stage('Release'){
 
-		}
-                stage('Notification')
+		//}
+                //stage('Notification')
           }
 }
