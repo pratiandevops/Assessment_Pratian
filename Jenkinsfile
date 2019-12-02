@@ -26,7 +26,7 @@ pipeline{
                                                 steps{
                                                         //script {
                                                             //    docker.withRegistry( '', registryCredential ) {
-                                                                    sh 'docker push $registry:latest'
+                                                                    sh 'docker push $registry:$BUILD_NUMBER'
                                                           //      }
                                                         //}
                                                 }
