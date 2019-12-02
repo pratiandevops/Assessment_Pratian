@@ -19,7 +19,9 @@ pipeline{
 					echo 'Executing Build'
 					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
-    					sh 'docker-compose build'
+					script {
+    						nginxImage = docker-compose.build registry + ":$BUILD_NUMBER"
+					}
 				}
                 }
 		stage('Push Image to Registory') {
