@@ -19,17 +19,15 @@ pipeline{
 					echo 'Executing Build'
 					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
-					script {
-    						nginxImage = docker.build registry + ":$BUILD_NUMBER"
-					}
+					sh 'docker-compose -p $registry:$BUILD_NUMBER build'
 				}
                 }
 		stage('Push Image to Registory') {
                                                 steps{
-                                                        script {
-                                                                docker.withRegistry( '', registryCredential ) {
-                                                                        nginxImage.push()
-                                                                }
+                                                        //script {
+                                                                //docker.withRegistry( '', registryCredential ) {
+                                                                        sh 'docker push $registry:$BUILD_NUMBER'
+                                                                //}
                                                         }
                                                 }
                 }
