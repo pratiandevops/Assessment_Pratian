@@ -5,7 +5,7 @@ pipeline{
 	  }
 	  environment {
                 nginxImage = ''
-                registry = "vmady/assesment_pratian"
+                registry = "vmady/nginx"
                 registryCredential = 'docker-hub-credentials'
        	  }
           stages{
@@ -19,18 +19,16 @@ pipeline{
 					echo 'Executing Build'
 					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
-					script {
-						nginxImage= docker-compose $registry:$BUILD_NUMBER build
-					}
+					sh 'docker-compose -p $registry:$BUILD_NUMBER build'
 				}
                 }
 		stage('Push Image to Registory') {
                                                 steps{
-                                                        script {
-                                                                docker.withRegistry( '', registryCredential ) {
-                                                                        nginxImage.push()
-                                                                }
-                                                        }
+                                                        //script {
+                                                            //    docker.withRegistry( '', registryCredential ) {
+                                                                    sh 'docker push $registry:$BUILD_NUMBER'
+                                                          //      }
+                                                        //}
                                                 }
                 }
                 stage('Remove Unused docker image') {
