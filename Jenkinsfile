@@ -26,7 +26,7 @@ pipeline{
                                                 steps{
                                                         script {
                                                                 docker.withRegistry( '', registryCredential ) {
-                                                                        nginx.push()
+                                                                        nginxImage.push()
                                                                 }
                                                         }
                                                 }
