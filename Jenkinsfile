@@ -19,16 +19,18 @@ pipeline{
 					echo 'Executing Build'
 					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
-					sh 'docker-compose -t $registry:$BUILD_NUMBER build'
+					script {
+						nginxImage= docker-compose $registry:$BUILD_NUMBER build'
+					}
 				}
                 }
 		stage('Push Image to Registory') {
                                                 steps{
-                                                        //script {
-                                                                //docker.withRegistry( '', registryCredential ) {
-                                                                        sh 'docker push $registry:$BUILD_NUMBER'
-                                                                //}
-                                                        //}
+                                                        script {
+                                                                docker.withRegistry( '', registryCredential ) {
+                                                                        nginxImage.push()
+                                                                }
+                                                        }
                                                 }
                 }
                 stage('Remove Unused docker image') {
