@@ -43,9 +43,10 @@ pipeline{
        		//stage('Approval'){
 
 		//}
-                //stage('Release'){
-
-		//}
+                stage('Release'){
+				sh 'docker-compose stop'
+				sh 'docker-compose up'
+		}
                 //stage('Notification')
           }
 }
