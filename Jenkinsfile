@@ -12,6 +12,7 @@ pipeline{
                 stage('Build'){
 				steps{
 					echo 'Executing Build'
+					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
     					sh 'docker-compose build'
 				}
