@@ -28,7 +28,7 @@ pipeline{
                                                                 //docker.withRegistry( '', registryCredential ) {
                                                                         sh 'docker push $registry:$BUILD_NUMBER'
                                                                 //}
-                                                        }
+                                                        //}
                                                 }
                 }
                 stage('Remove Unused docker image') {
