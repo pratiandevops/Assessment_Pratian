@@ -1,9 +1,25 @@
-<div class="jumbotron">
-  <h1 class="display-3">Pratian Code Assessment-Under Maintanance</h1>
-  <p class="lead">Code Assessment</p>
-  <hr class="my-2">
-  <p>More info</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Code Assessment</a>
-  </p>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top shadow p-1" style="background: linear-gradient(141deg, #3a419480 0%, #1fdb47 70%, #40e82c 75%);">
+    <a class="navbar-brand font-weight-bold" href="/">
+        <img src="../assets/images/PCA-White_withoutText.svg" style="height:40px; width:40px;" alt="logo">
+    </a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="navbar-collapse collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link font-weight-bold" routerLink="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link font-weight-bold" routerLink="/playground">Playground</a>
+            </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+
+        </form>
+    </div>
+</nav>
+
+<div class="container-fluid" style="margin-top: 3.5rem;">
+    <router-outlet></router-outlet>
 </div>

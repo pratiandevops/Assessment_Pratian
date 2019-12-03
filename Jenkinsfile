@@ -1,8 +1,13 @@
 pipeline{
-          agent (label, Ubuntu)
+	agent {label 'Ubuntu'}
           parameters{
 		booleanParam(name: 'Release', defaultValue: false, description: 'Approval Will push code to Live' )
 	  }
+	  environment {
+                nginxImage = ''
+                registry = "vmady/nginx"
+                registryCredential = 'docker-hub-credentials'
+       	  }
           stages{
         	stage('Checkout'){
                 	steps{
@@ -12,19 +17,38 @@ pipeline{
                 stage('Build'){
 				steps{
 					echo 'Executing Build'
+					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
-    					sh 'docker-compose build'
+					sh 'docker-compose -p $registry build'
 				}
                 }
-                stage('Artifactory'){
+		stage('Push Image to Registory') {
+                                                steps{
+                                                        //script {
+                                                            //    docker.withRegistry( '', registryCredential ) {
+                                                                    sh 'docker push $registry:$BUILD_NUMBER'
+                                                          //      }
+                                                        //}
+                                                }
+                }
+                stage('Remove Unused docker image') {
+                                                steps{
+                                                        sh "docker rmi $registry:$BUILD_NUMBER"
+                                                }
+                }
+                //stage('Artifactory'){
+		//			echo 'Creating Artifacts'
+		//			archiveArtifacts ''
+		//}
+       		//stage('Approval'){
 
-		}
-       		stage('Approval'){
-
-		}
+		//}
                 stage('Release'){
-
+			steps{
+				sh 'docker-compose stop'
+				sh 'docker-compose up -d'
+			}
 		}
-                stage('Notification')
+                //stage('Notification')
           }
 }
