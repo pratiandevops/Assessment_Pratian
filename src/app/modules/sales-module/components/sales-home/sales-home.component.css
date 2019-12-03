@@ -29,14 +29,15 @@
 
 .serviceBox:hover .service-icon {
     box-shadow: 0 0 25px -5px #707070;
+    cursor: pointer;
 }
 
 .serviceBox .service-icon:before,
 .serviceBox .service-icon:after {
-    content: "\f0b1";
+    content: "\1F421";
     color: #4385F5;
     font-size: 60px;
-    font-family: "Font Awesome 5 Free";
+    font-family: FontAwesome;
     font-weight: 900;
     width: 100%;
     height: 100%;
@@ -56,6 +57,7 @@
 }
 
 .serviceBox:hover .service-icon:before {
+    font-family: FontAwesome;
     top: -100%;
 }
 
@@ -85,6 +87,7 @@
 .serviceBox.purple .service-icon:before,
 .serviceBox.purple .service-icon:after {
     content: "\f0ac";
+    font-family: FontAwesome;
     color: #a52eea;
 }
 
@@ -99,7 +102,8 @@
 
 .serviceBox.green .service-icon:before,
 .serviceBox.green .service-icon:after {
-    content: "\f095";
+    content: "\f121";
+    font-family: FontAwesome;
     color: #34B67A;
 }
 
@@ -114,7 +118,8 @@
 
 .serviceBox.red .service-icon:before,
 .serviceBox.red .service-icon:after {
-    content: "\f10b";
+    content: "\f0e8";
+    font-family: FontAwesome;
     color: #FF4761;
 }
 
