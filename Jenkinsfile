@@ -1,12 +1,13 @@
 pipeline{
 	agent {label 'Ubuntu'}
           parameters{
+		booleanParam( name: 'Build', defaultValue: true, description: 'By default it will build' )
 		booleanParam(name: 'Release', defaultValue: false, description: 'Approval Will push code to Live' )
 	  }
 	  environment {
                 nginxImage = ''
-                registry = "vmady/nginx"
-                registryCredential = 'docker-hub-credentials'
+                registry = "pratiandevops/nginx"
+                registryCredential = 'PratianDockerHub'
        	  }
           stages{
         	stage('Checkout'){
@@ -15,6 +16,9 @@ pipeline{
 			}
                 }
                 stage('Build'){
+				when {
+					expression { params.Build == true }
+				}
 				steps{
 					echo 'Executing Build'
 					//sh 'npm install --save-dev @angular-devkit/build-angular'
@@ -40,15 +44,29 @@ pipeline{
 		//			echo 'Creating Artifacts'
 		//			archiveArtifacts ''
 		//}
-       		//stage('Approval'){
-
-		//}
-                stage('Release'){
+       		stage('Approval'){
+			when {
+				expression {params.Release == true}
+			}
 			steps{
-				sh 'docker-compose stop'
-				sh 'docker-compose up -d'
+				script {
+					input message: 'Do you Approve Deployment?', ok: 'Yes', submitter: 'assessment'
+				}
 			}
 		}
-                //stage('Notification')
+                stage('Release'){
+			when {
+				expression { params.Release == true }	
+			}
+			steps{
+				echo 'Stopping Running Container'
+				sh 'docker-compose stop'
+				echo 'Container Stopped'
+				echo 'Starting New Updated Container'
+				sh 'docker-compose up -d'
+				echo 'Container is Up and Running'
+			}
+		}
+              	//stage('Notification')
           }
 }
