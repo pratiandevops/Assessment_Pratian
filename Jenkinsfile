@@ -6,8 +6,8 @@ pipeline{
 	  }
 	  environment {
                 nginxImage = ''
-                registry = "vmady/nginx"
-                registryCredential = 'docker-hub-credentials'
+                registry = "pratiandevops/nginx"
+                registryCredential = 'PratianDockerHub'
        	  }
           stages{
         	stage('Checkout'){
