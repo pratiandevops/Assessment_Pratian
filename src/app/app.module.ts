@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SalesModuleModule } from './modules/sales-module/sales-module.module';
+import { AssessmentBuilderModuleModule } from './modules/assessment-builder-module/assessment-builder-module.module';
+import { AssessmentModuleModule } from './modules/assessment-module/assessment-module.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,9 @@ import { SalesModuleModule } from './modules/sales-module/sales-module.module';
   imports: [
     BrowserModule,
     SalesModuleModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AssessmentBuilderModuleModule,
+    AssessmentModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

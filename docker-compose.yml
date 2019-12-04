@@ -6,7 +6,7 @@ version: '3.1'
 
 services:
   webapp:
-          build: .      
+    build: .      
   nginx:
     container_name: nginx
     image: vmady/nginx:$BUILD_NUMBER
