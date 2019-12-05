@@ -1,14 +1,28 @@
 <div class="code-container">
     <div class="code-header">
-            {{currentTime}} Time Left
+            {{currentTime}}
     </div>
     <div class="code-body">
         <div class="code-statement-con">
-            statement
+            <div class="code-title">
+                    Dynamic Array
+            </div>
+            <div class="code-description">
+                    Create a list, , of  empty sequences, where each sequence is indexed from  to . The elements within each of the  sequences also use -indexing.
+                    Create an integer, , and initialize it to .
+                    The  types of queries that can be performed on your list of sequences () are described below:
+                    Query: 1 x y
+                    Find the sequence, , at index  in .
+                    Append integer  to sequence .
+                    Query: 2 x y
+                    Find the sequence, , at index  in .
+                    Find the value of element  in  (where  is the size of ) and assign it to .
+                    Print the new value of  on a new line
+            </div>
         </div>
         <div class="code-editor-con">
             <form class="code-editor-form">
-                <label>Language:</label>
+                <label style="margin-right: 5px;">Language:</label>
                 <select name="language" [(ngModel)]="selectedLanguage" (change)="changeLanguage()">
                     <option *ngFor="let item of languages" [value]="item.value">{{item.text}}</option>
                 </select>
@@ -17,9 +31,14 @@
                 <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
             </div>
             <div class="code-testcase">
+                <div style="flex:1;font-size: 0.8em;">
+                    Test Cases - <span class="badge badge-success">3 passed</span><span class="badge badge-danger" style="margin-left: 5px;">5 failed</span> 
+                </div>
+                <div>
+                        <button class="btn btn-sm btn-primary" style="margin-right: 5px;">Run Test Cases</button>
+                        <button class="btn btn-sm btn-success">Submit Code</button>
+                </div>
                 
-                <button class="btn btn-sm btn-primary" style="margin-right: 5px;">Run Test Cases</button>
-                <button class="btn btn-sm btn-success">Submit Code</button>
             </div>
         </div>
     </div>
