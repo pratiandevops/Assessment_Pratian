@@ -19,7 +19,7 @@ export class AssessmentCodeComponent implements OnInit {
 
   currentTime:string = '00:00:00';
 
-  editorOptions = {theme: 'vs-light', language: this.selectedLanguage};
+  editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
   code: string= 'function x() {\nconsole.log("Hello world!");\n}';
 
   
@@ -29,7 +29,7 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   changeLanguage(){
-    this.editorOptions = {theme: 'vs-light', language: this.selectedLanguage};
+    this.editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
   }
 
   startTimer(counter){
