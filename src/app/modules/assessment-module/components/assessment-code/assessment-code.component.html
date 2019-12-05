@@ -1,1 +1,26 @@
-<p>assessment-code works!</p>
+<div class="code-container">
+    <div class="code-header">
+            {{currentTime}} Time Left
+    </div>
+    <div class="code-body">
+        <div class="code-statement-con">
+            statement
+        </div>
+        <div class="code-editor-con">
+            <form class="code-editor-form">
+                <label>Language:</label>
+                <select name="language" [(ngModel)]="selectedLanguage" (change)="changeLanguage()">
+                    <option *ngFor="let item of languages" [value]="item.value">{{item.text}}</option>
+                </select>
+            </form>
+            <div class="code-editor">
+                <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+            </div>
+            <div class="code-testcase">
+                
+                <button class="btn btn-sm btn-primary" style="margin-right: 5px;">Run Test Cases</button>
+                <button class="btn btn-sm btn-success">Submit Code</button>
+            </div>
+        </div>
+    </div>
+</div>
