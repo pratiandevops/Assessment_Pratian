@@ -20,8 +20,9 @@
                         "tsConfig": "tsconfig.app.json",
                         "aot": false,
                         "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
+                            { "glob": "**/*", "input": "src/assets/", "output": "/assets/" },
+                            { "glob": "favicon.ico", "input": "src/", "output": "/" },
+                            { "glob": "**/*", "input": "node_modules/ngx-monaco-editor/assets/monaco", "output": "./assets/monaco/" }
                         ],
                         "styles": [
                             "src/styles.css",

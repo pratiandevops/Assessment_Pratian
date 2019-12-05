@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AssesmentQuestion } from '../models/AssesmentQuestion';
 
 @Injectable({
   providedIn: 'root'
@@ -29,4 +31,10 @@ export class AssesmentServiceService {
   }): Observable<HttpEvent<T>> {
     return this.httpClient.post<T>(url, data, options);
   }
+
+  getAssessmentQuestion(): Observable<AssesmentQuestion> {
+    return this.httpClient.get<AssesmentQuestion>("assets/json/assesmentQuestions.json")
+      .pipe(map((response: AssesmentQuestion) => response as AssesmentQuestion));
+  }
+  
 }

@@ -1,9 +1,10 @@
 <h3 class="pt-3">Stage 1 MCQ Aptitude Assesment</h3>
+
 <div class="container">
     <!--Question Number List-->
     <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig2" (afterChange)="afterChange($event)">
             <div ngxSlickItem *ngFor="let question of QuestionList" class="slide col-10">
-                    <button type="button" class="btn btn-secondary btn-sm mx-1">01</button>
+                    <button type="button" class="btn btn-secondary btn-sm mx-1">{{question.MCAssesmentQuestionID}}</button>
             </div>
     </ngx-slick>
 
@@ -13,9 +14,9 @@
                   <!--Problem Component-->
         <div class="card shadow p-3">
                 <div class="card-body">
-                <h5 class="card-title">Question 01</h5>
+                <h5 class="card-title">Question {{question.MCAssesmentQuestionID}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Problem Title </h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">{{question.Question}}</p>
                 </div>
             </div>
                 <!--Answer Choice Options-->

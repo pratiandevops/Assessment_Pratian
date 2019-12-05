@@ -10,9 +10,9 @@ import { Observable, of } from 'rxjs';
 })
 export class AssessmentMcqComponent implements OnInit {
 
-  private QuestionList: AssesmentQuestion[];
+  private QuestionList: any;
 
-  
+
   slideConfig = {
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -75,23 +75,18 @@ export class AssessmentMcqComponent implements OnInit {
   }
 
   saveAndProcced() {
-    debugger;
    console.log('Called save and procced');
  }
   constructor(private assesmentService: AssesmentServiceService) { }
 
   ngOnInit() {
     // getting the data
-    this.getAssesmentQuestionList().subscribe(data => {
+    this.assesmentService.getAssessmentQuestion().subscribe(data => {
       this.QuestionList = data;
-      console.log(this.QuestionList);
     });
   }
 
   // Method to get assesment question set
-  getAssesmentQuestionList(): Observable<AssesmentQuestion[]>  {
-    return Observable.of().map(o => JSON.stringify(o)); 
-    //return this.assesmentService.get('tsv');
-  }
+  
 
 }

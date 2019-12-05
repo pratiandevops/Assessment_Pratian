@@ -1,0 +1,88 @@
+.component-tile-box {
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.component-tile:hover {
+    box-shadow: 0px 6px 14px 2px rgba(182, 205, 239, .97);
+}
+
+.component-tile:hover .component-circle-logo {
+    cursor: pointer;
+    -webkit-animation-name: bounce;
+    animation-name: bounce;
+    -moz-animation-name: bounce;
+}
+
+@keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+.component-tile {
+    border-radius: 2px;
+    border-bottom: 4px solid rgba(77, 102, 154, .67);
+    box-shadow: 0 0 14px 1px #eaedff;
+    text-align: center;
+    padding: 1rem;
+    min-height: 15rem;
+}
+
+.logo {
+    background-repeat: no-repeat;
+}
+
+.image-code-url {
+    background: url('/assets/images/CODE.svg');
+    background-size: cover;
+}
+
+.image-mcq-url {
+    background: url('/assets/images/MCQ.svg');
+    background-size: cover;
+}
+
+.component-circle-logo {
+    height: 3rem;
+    width: 3rem;
+    display: inline-block;
+    padding: 2rem;
+    color: #23669a;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.component-caption span {
+    font-size: 1rem;
+    font-weight: bold;
+    color: purple;
+}
+
+.sub-header {
+    text-align: center;
+    padding: 1rem;
+}
+
+.sub-headers-count {
+    text-align: center;
+    color: #23669a;
+    font-weight: 700;
+    font-size: 1rem;
+}
