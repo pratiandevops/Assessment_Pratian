@@ -1,0 +1,33 @@
+[{
+    "AssesmentID": "1",
+    "AssesmentName": "OO Design",
+    "AssesmentType": "MCQ",
+    "TimeInMinutes": "60",
+    "DateOfAssesment": "15/12/2019",
+    "AssesmentKey": "1",
+    "Result": "56"
+}, {
+    "AssesmentID": "2",
+    "AssesmentName": "C#",
+    "AssesmentType": "CODE",
+    "TimeInMinutes": "30",
+    "DateOfAssesment": "15/12/2019",
+    "AssesmentKey": "1",
+    "Result": "26"
+}, {
+    "AssesmentID": "3",
+    "AssesmentName": "Java",
+    "AssesmentType": "CODE",
+    "TimeInMinutes": "60",
+    "DateOfAssesment": "15/12/2019",
+    "AssesmentKey": "1",
+    "Result": "76"
+}, {
+    "AssesmentID": "4",
+    "AssesmentName": "Python",
+    "AssesmentType": "MCQ",
+    "TimeInMinutes": "30",
+    "DateOfAssesment": "15/12/2019",
+    "AssesmentKey": "1",
+    "Result": "13"
+}]

@@ -1,1 +1,6 @@
-<p>card works!</p>
+<div class="component-tile-box">
+    <div class="component-tile">
+        <div class="component-circle-logo logo" [ngClass]="(assessment.AssesmentType=='MCQ')?'image-mcq-url':'image-code-url'"></div>
+        <div class="component-caption"><span>{{assessment.AssesmentName}}</span></div>
+    </div>
+</div>

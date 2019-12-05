@@ -6,6 +6,7 @@ import { SalesModuleModule } from './modules/sales-module/sales-module.module';
 import { AssessmentBuilderModuleModule } from './modules/assessment-builder-module/assessment-builder-module.module';
 import { AssessmentModuleModule } from './modules/assessment-module/assessment-module.module';
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SharedModulesModule } from './shared-modules/shared-modules.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     SalesModuleModule,
     AppRoutingModule,
     AssessmentBuilderModuleModule,
