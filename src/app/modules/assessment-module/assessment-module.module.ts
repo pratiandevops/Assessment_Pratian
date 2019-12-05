@@ -6,9 +6,10 @@ import { AssessmentModuleRoutingModule } from './assessment-module-routing.modul
 import { AssessmentHomeComponent } from './components/assessment-home/assessment-home.component';
 import { AssessmentMcqComponent } from './components/assessment-mcq/assessment-mcq.component';
 import { AssessmentCodeComponent } from './components/assessment-code/assessment-code.component';
+import { CardComponent } from 'src/app/shared-modules/components/card/card.component';
 
 @NgModule({
-  declarations: [AssessmentHomeComponent, AssessmentMcqComponent, AssessmentCodeComponent],
+  declarations: [AssessmentHomeComponent, CardComponent, AssessmentMcqComponent, AssessmentCodeComponent],
   imports: [
     CommonModule,
     FormsModule,
