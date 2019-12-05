@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { SalesModuleModule } from './modules/sales-module/sales-module.module';
 import { AssessmentBuilderModuleModule } from './modules/assessment-builder-module/assessment-builder-module.module';
 import { AssessmentModuleModule } from './modules/assessment-module/assessment-module.module';
+import { CardComponent } from './shared-modules/components/card/card.component';
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -20,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     AssessmentBuilderModuleModule,
     AssessmentModuleModule,
-    SharedModulesModule
+     SharedModulesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

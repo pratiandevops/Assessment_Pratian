@@ -25,9 +25,13 @@
                             { "glob": "**/*", "input": "node_modules/ngx-monaco-editor/assets/monaco", "output": "./assets/monaco/" }
                         ],
                         "styles": [
-                            "src/styles.css"
+                            "src/styles.css",
+                            "./node_modules/slick-carousel/slick/slick.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "./node_modules/jquery/dist/jquery.min.js",
+                            "./node_modules/slick-carousel/slick/slick.min.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
