@@ -74,3 +74,15 @@
     font-weight: bold;
     color: purple;
 }
+
+.sub-header {
+    text-align: center;
+    padding: 1rem;
+}
+
+.sub-headers-count {
+    text-align: center;
+    color: #23669a;
+    font-weight: 700;
+    font-size: 1rem;
+}
