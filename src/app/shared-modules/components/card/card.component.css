@@ -75,14 +75,18 @@
     color: purple;
 }
 
-.sub-header {
+.sub-headers {
     text-align: center;
     padding: 1rem;
+    float: left;
 }
 
 .sub-headers-count {
     text-align: center;
-    color: #23669a;
-    font-weight: 700;
+    color: #898ebd;
     font-size: 1rem;
+}
+
+.logo {
+    color: #898ebd;
 }
