@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IAssessment } from 'src/app/models/IAssessment';
 
 @Component({
   selector: 'card-component',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-
+  @Input()
+  assessment:IAssessment
   constructor() { }
 
   ngOnInit() {
+    console.log(this.assessment);
   }
 
 }

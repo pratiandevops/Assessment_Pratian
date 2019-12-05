@@ -1,0 +1,49 @@
+.code-container{
+    height:calc(100vh - 55px);
+    display: flex;
+    flex-direction: column;
+}
+
+.code-header{
+    text-align: right;
+    padding:10px;
+}
+
+.code-body{
+    display: flex;
+    flex-direction: row;
+    flex:1;
+}
+
+.code-statement-con{
+    flex:1;
+}
+
+.code-editor-con{
+    flex:2;
+    display: flex;
+    flex-direction: column;
+}
+
+.code-editor-form{
+    text-align: right;
+}
+
+.code-editor{
+    flex:1;
+}
+
+.my-code-editor {
+    height: 100%;
+}
+
+.test-case-con{
+    display: flex;
+    flex-direction: row;
+}
+
+.code-testcase{
+    display: flex;
+    justify-content: flex-end;
+    padding:5px;
+}
