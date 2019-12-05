@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SlickModule } from 'ngx-slick';
 
 import { AssessmentModuleRoutingModule } from './assessment-module-routing.module';
 import { AssessmentHomeComponent } from './components/assessment-home/assessment-home.component';
@@ -10,7 +11,8 @@ import { AssessmentCodeComponent } from './components/assessment-code/assessment
   declarations: [AssessmentHomeComponent, AssessmentMcqComponent, AssessmentCodeComponent],
   imports: [
     CommonModule,
-    AssessmentModuleRoutingModule
+    AssessmentModuleRoutingModule,
+    SlickModule.forRoot()
   ]
 })
 export class AssessmentModuleModule { }
