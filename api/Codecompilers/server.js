@@ -296,7 +296,7 @@ app.post('/submitCode', (req, res) => {
         });
     }
 });
-const PORT = process.env.PORT || 2505;
+const PORT = process.env.PORT || 2502;
 app.listen(PORT, () => {
 
     console.log(`Server is Running at port ${PORT}`)
