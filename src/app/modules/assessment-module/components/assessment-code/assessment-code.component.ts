@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-assessment-code',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./assessment-code.component.css']
 })
 export class AssessmentCodeComponent implements OnInit {
+  
 
-  constructor() { }
+  constructor(private aRouter:ActivatedRoute) { }
   languages = [  {text: 'C++', value: 'cpp'},
   {text: 'C#', value: 'csharp'},
   {text: 'Java', value: 'java'},
@@ -33,7 +35,7 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   startTimer(counter){
-    let counterInterval = setInterval(() => {
+      let counterInterval = setInterval(() => {
       this.currentTime = this.convertSecToClock(counter);
       if(counter===-1){
         this.submitCode();
@@ -56,4 +58,5 @@ export class AssessmentCodeComponent implements OnInit {
     let seconds = totalSeconds % 60;
     return `${hours<10 ? '0':''}${hours}:${minutes<10 ? '0':''}${minutes}:${seconds<10 ? '0':''}${seconds}`;
   }
+  
 }

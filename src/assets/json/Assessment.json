@@ -30,4 +30,31 @@
     "DateOfAssesment": "15/12/2019",
     "AssesmentKey": "1",
     "Result": "13"
+},
+{
+    "AssesmentID": "5",
+    "AssesmentName": "C",
+    "AssesmentType": "CODE",
+    "TimeInMinutes": "60",
+    "DateOfAssesment": "15/12/2019",
+    "AssesmentKey": "1",
+    "Result": "56"
+},
+{
+    "AssesmentID": "6",
+    "AssesmentName": "Typescript",
+    "AssesmentType": "CODE",
+    "TimeInMinutes": "60",
+    "DateOfAssesment": "6/12/2019",
+    "AssesmentKey": "1",
+    "Result": "56"
+},
+{
+    "AssesmentID": "7",
+    "AssesmentName": "C",
+    "AssesmentType": "MCQ",
+    "TimeInMinutes": "60",
+    "DateOfAssesment": "15/12/2019",
+    "AssesmentKey": "1",
+    "Result": "56"
 }]
