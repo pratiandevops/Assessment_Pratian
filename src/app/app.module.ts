@@ -7,15 +7,11 @@ import { AssessmentBuilderModuleModule } from './modules/assessment-builder-modu
 import { AssessmentModuleModule } from './modules/assessment-module/assessment-module.module';
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthenticationComponent } from './shared-module/components/authentication/authentication.component';
-import { RegistrationComponent } from './shared-module/components/registration/registration.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AuthenticationComponent,
-    RegistrationComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
