@@ -22,6 +22,7 @@ export class AssessmentCodeComponent implements OnInit {
 
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
   code: string= '';
+  output:string[] = [];
 
   ngOnInit() {
     this.startTimer(10);
@@ -56,6 +57,7 @@ export class AssessmentCodeComponent implements OnInit {
       case 'csharp':{
         this.compilerService.csharpcompiler(this.code,input).subscribe((data:any)=>{
           output = data;
+          this.printOutput(data);
           console.log(data);
         });
         break;
@@ -72,6 +74,15 @@ export class AssessmentCodeComponent implements OnInit {
         });
         break;
       }
+    }
+  }
+
+  printOutput(output){
+    if(output.error){
+      this.output.push(output.error);
+    }
+    if(output.output){
+      this.output.push(output.output);
     }
   }
 
