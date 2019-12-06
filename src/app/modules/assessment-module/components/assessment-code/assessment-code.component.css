@@ -65,12 +65,12 @@
 
 .output-terminal{
     padding:10px;
-    background: #ddd;
+    background: #09235f;
+    flex:1;
 }
 
 .code-testcase{
     display: flex;
-    justify-content: flex-end;
-    padding:5px;
+    flex-direction: column;
     height:150px;
 }
