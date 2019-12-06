@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {CompilerService} from '../../services/compiler.service';
+import { AssessmentServiceService} from '../../services/assessments.service';
 
 @Component({
   selector: 'app-assessment-code',
@@ -9,8 +10,10 @@ import {CompilerService} from '../../services/compiler.service';
 })
 export class AssessmentCodeComponent implements OnInit {
   
+  @ViewChild('openModal',{static:true}) openModal:ElementRef;
+  constructor(private aRouter: ActivatedRoute, private compilerService: CompilerService,
+    private assessmentService: AssessmentServiceService,private router: Router) { }
 
-  constructor(private aRouter: ActivatedRoute, private compilerService: CompilerService) { }
   languages = [  {text: 'C++', value: 'cpp'},
   {text: 'C#', value: 'csharp'},
   {text: 'Java', value: 'java'},
@@ -26,6 +29,15 @@ export class AssessmentCodeComponent implements OnInit {
 
   ngOnInit() {
     this.startTimer(10);
+    const id = this.aRouter.snapshot.paramMap.get('id');
+    this.assessmentService.getAssessmentDetailsByID(id).subscribe((data)=>{
+      console.log(data);
+    });
+    
+  }
+
+  getQuestionDetails(id){
+
   }
 
   changeLanguage(){
@@ -84,7 +96,11 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   submitCode(){
-    alert("code is submited");
+    this.openModal.nativeElement.click();
+  }
+
+  closeAssessment(){
+    this.router.navigate(['/assessment']);
   }
 
   convertSecToClock(totalSeconds){
