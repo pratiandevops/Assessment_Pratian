@@ -57,6 +57,17 @@
     flex-direction: row;
 }
 
+.code-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.output-terminal{
+    padding:10px;
+    background: #ddd;
+}
+
 .code-testcase{
     display: flex;
     justify-content: flex-end;

@@ -32,13 +32,15 @@
             <div class="code-editor">
                 <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
             </div>
-            
+            <div class="code-footer">
+                    <button class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
+                    <button class="btn btn-sm btn-success">Submit Code</button>
+            </div>
             <div class="code-testcase">
-                <div>
-                        <button class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
-                        <button class="btn btn-sm btn-success">Submit Code</button>
+                <div class="output-terminal">
+
                 </div>
-                
+               
             </div>
         </div>
     </div>
