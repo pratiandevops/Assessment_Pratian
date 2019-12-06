@@ -1,5 +1,5 @@
 # Pulling Base Image 
-FROM node:alpine AS builder
+FROM node:12.13.1 AS builder
 
 # WORKING Directory
 WORKDIR /home/node/app
