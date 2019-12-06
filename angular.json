@@ -19,19 +19,21 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "aot": false,
-                        "assets": [
-                            { "glob": "**/*", "input": "src/assets/", "output": "/assets/" },
-                            { "glob": "favicon.ico", "input": "src/", "output": "/" },
-                            { "glob": "**/*", "input": "node_modules/ngx-monaco-editor/assets/monaco", "output": "./assets/monaco/" }
-                        ],
-                        "styles": [
-                            "src/styles.css",
-                            "./node_modules/slick-carousel/slick/slick.css"
-                        ],
-                        "scripts": [
-                            "./node_modules/jquery/dist/jquery.min.js",
-                            "./node_modules/slick-carousel/slick/slick.min.js"
-                        ]
+                        "assets": [{
+                            "glob": "**/*",
+                            "input": "src/assets/",
+                            "output": "/assets/"
+                        }, {
+                            "glob": "favicon.ico",
+                            "input": "src/",
+                            "output": "/"
+                        }, {
+                            "glob": "**/*",
+                            "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                            "output": "./assets/monaco/"
+                        }],
+                        "styles": [],
+                        "scripts": []
                     },
                     "configurations": {
                         "production": {
@@ -49,16 +51,14 @@
                             "vendorChunk": false,
                             "buildOptimizer": true,
                             "budgets": [{
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb",
-                                    "maximumError": "10kb"
-                                }
-                            ]
+                                "type": "initial",
+                                "maximumWarning": "2mb",
+                                "maximumError": "5mb"
+                            }, {
+                                "type": "anyComponentStyle",
+                                "maximumWarning": "6kb",
+                                "maximumError": "10kb"
+                            }]
                         }
                     }
                 },

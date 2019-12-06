@@ -22,7 +22,6 @@
         "@angular/router": "~8.2.14",
         "@ng-bootstrap/ng-bootstrap": "^5.1.4",
         "bootstrap": "^4.4.1",
-        "jquery": "^3.4.1",
         "ngx-slick": "^0.2.1",
         "ngx-monaco-editor": "^6.0.0",
         "rxjs": "~6.4.0",
