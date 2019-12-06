@@ -46,31 +46,28 @@ export class AssessmentCodeComponent implements OnInit {
 
   runTestCases(){
     let input: string = '1';
-    let output: string ='';
     switch(this.selectedLanguage){
       case 'cpp':{
         this.compilerService.ccompiler(this.code,input).subscribe((data:any)=>{
-          output = data;
+          this.printOutput(data);
         });
         break;
       }
       case 'csharp':{
-        this.compilerService.csharpcompiler(this.code,input).subscribe((data:any)=>{
-          output = data;
+        this.compilerService.csharpcompiler(this.code,input).subscribe((data:any)=>{        
           this.printOutput(data);
-          console.log(data);
         });
         break;
       }
       case 'java':{
         this.compilerService.jcompiler(this.code,input).subscribe((data:any)=>{
-          output = data;
+          this.printOutput(data);
         });
         break;
       }
       case 'python':{
         this.compilerService.pcompiler(this.code,input).subscribe((data:any)=>{
-          output = data;
+          this.printOutput(data);
         });
         break;
       }

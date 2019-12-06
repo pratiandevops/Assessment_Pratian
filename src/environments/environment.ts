@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  compilerURL:'http://172.30.11.191:2505'
+  compilerURL:'http://172.30.11.191:2505',
+  assessmentURL:'http://172.30.11.7:8099/'
 };
 
 /*
