@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {CompilerService} from '../../services/compiler.service';
 
 @Component({
   selector: 'app-assessment-code',
@@ -9,22 +10,18 @@ import { ActivatedRoute } from '@angular/router';
 export class AssessmentCodeComponent implements OnInit {
   
 
-  constructor(private aRouter:ActivatedRoute) { }
+  constructor(private aRouter: ActivatedRoute, private compilerService: CompilerService) { }
   languages = [  {text: 'C++', value: 'cpp'},
   {text: 'C#', value: 'csharp'},
   {text: 'Java', value: 'java'},
-  {text: 'Python', value: 'python'},
-  {text: 'Javascript', value: 'javascript'},
-  {text: 'Typescript', value: 'typescript'}];
+  {text: 'Python', value: 'python'}];
 
-  selectedLanguage: string = 'javascript';
+  selectedLanguage: string = 'csharp';
 
   currentTime:string = '00:00:00';
 
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
-  code: string= 'function x() {\nconsole.log("Hello world!");\n}';
-
-  
+  code: string= '';
 
   ngOnInit() {
     this.startTimer(10);
@@ -35,16 +32,47 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   startTimer(counter){
-      let counterInterval = setInterval(() => {
+      let counterInterval: any = setInterval(() => {
       this.currentTime = this.convertSecToClock(counter);
-      if(counter===-1){
+      if (counter === -1) {
         this.submitCode();
         clearInterval(counterInterval);
         this.currentTime = this.convertSecToClock(0);
       }
       counter--;
-      
     }, 1000);
+  }
+
+  runTestCases(){
+    let input: string = '1';
+    let output: string ='';
+    switch(this.selectedLanguage){
+      case 'cpp':{
+        this.compilerService.ccompiler(this.code,input).subscribe((data:any)=>{
+          output = data;
+        });
+        break;
+      }
+      case 'csharp':{
+        this.compilerService.csharpcompiler(this.code,input).subscribe((data:any)=>{
+          output = data;
+          console.log(data);
+        });
+        break;
+      }
+      case 'java':{
+        this.compilerService.jcompiler(this.code,input).subscribe((data:any)=>{
+          output = data;
+        });
+        break;
+      }
+      case 'python':{
+        this.compilerService.pcompiler(this.code,input).subscribe((data:any)=>{
+          output = data;
+        });
+        break;
+      }
+    }
   }
 
   submitCode(){
@@ -58,5 +86,4 @@ export class AssessmentCodeComponent implements OnInit {
     let seconds = totalSeconds % 60;
     return `${hours<10 ? '0':''}${hours}:${minutes<10 ? '0':''}${minutes}:${seconds<10 ? '0':''}${seconds}`;
   }
-  
 }

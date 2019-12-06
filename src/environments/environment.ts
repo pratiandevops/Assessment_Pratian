@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  compilerURL:'http://172.30.11.191:2505'
 };
 
 /*
