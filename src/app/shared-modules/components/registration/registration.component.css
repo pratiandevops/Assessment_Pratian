@@ -1,0 +1,15 @@
+.signup-header {
+    background: linear-gradient(141deg, #3a419480 0%, #4fcdd4 70%, #7acbff 75%);
+}
+
+.signup-border {
+    border-radius: #92bade!important;
+}
+
+.signup-header {
+    color: #fff;
+}
+
+.form-group label {
+    font-size: 14px;
+}
