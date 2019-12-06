@@ -4,15 +4,13 @@
 
 version: '3.1'
 
-services:
-  webapp:
-    build: .      
+services:      
   nginx:
     container_name: nginx
     image: pratiandevops/nginx:$BUILD_NUMBER
     build:
       context: .
-      dockerfile: .docker/nginx.dockerfile
+      dockerfile: .docker/CodeAssessment.dockerfile
     volumes:
       - ./dist:/usr/share/nginx/html
     ports:
