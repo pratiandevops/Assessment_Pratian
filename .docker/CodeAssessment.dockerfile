@@ -10,9 +10,10 @@ COPY package*.json ./
 
 # Installing Dependencies for building Node Js APP
 #RUN rm -rf node_modules
-RUN npm install 
+ 
 RUN npm install --save-dev @angular-devkit/build-angular
 RUN npm i @angular/cli -g
+RUN npm install
 #RUN npm install ngx-monaco-editor --save
 
 
