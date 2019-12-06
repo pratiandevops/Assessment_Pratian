@@ -8,12 +8,14 @@ import { AssessmentModuleModule } from './modules/assessment-module/assessment-m
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationComponent } from './shared-module/components/authentication/authentication.component';
+import { RegistrationComponent } from './shared-module/components/registration/registration.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
