@@ -24,25 +24,25 @@ pipeline{
 				}
 				steps{
 					echo 'Executing Build'
-					sh 'npm install --save-dev @angular-devkit/build-angular'
+					//sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
 					sh 'docker-compose -p $registry build'
 				}
                 }
-		stage('Push Image to Registory') {
-                                                steps{
+		//stage('Push Image to Registory') {
+                  //                              steps{
                                                         //script {
                                                             //    docker.withRegistry( '', registryCredential ) {
-                                                                    sh 'docker push $registry:$BUILD_NUMBER'
+                                                                  //  sh 'docker push $registry:$BUILD_NUMBER'
                                                           //      }
                                                         //}
-                                                }
-                }
-                stage('Remove Unused docker image') {
-                                                steps{
-                                                        sh "docker rmi $registry:$BUILD_NUMBER"
-                                                }
-                }
+                    //                            }
+                //}
+                //stage('Remove Unused docker image') {
+                  //                              steps{
+                    //                                    sh "docker rmi $registry:$BUILD_NUMBER"
+                      //                          }
+                //}
                 //stage('Artifactory'){
 		//			echo 'Creating Artifacts'
 		//			archiveArtifacts ''
