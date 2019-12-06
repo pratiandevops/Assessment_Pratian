@@ -1,7 +1,4 @@
 <div class="code-container">
-    <div class="code-header">
-            {{currentTime}}
-    </div>
     <div class="code-body">
         <div class="code-statement-con">
             <div class="code-title">
@@ -22,19 +19,21 @@
         </div>
         <div class="code-editor-con">
             <form class="code-editor-form">
-                <label style="margin-right: 5px;">Language:</label>
-                <select name="language" [(ngModel)]="selectedLanguage" (change)="changeLanguage()">
-                    <option *ngFor="let item of languages" [value]="item.value">{{item.text}}</option>
-                </select>
+                <div style="flex:1">
+                        <label style="margin-right: 5px;">Language:</label>
+                        <select name="language" [(ngModel)]="selectedLanguage" (change)="changeLanguage()">
+                            <option *ngFor="let item of languages" [value]="item.value">{{item.text}}</option>
+                        </select>
+                </div>
+                <div>
+                        {{currentTime}}
+                </div>
             </form>
             <div class="code-editor">
                 <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
             </div>
             
             <div class="code-testcase">
-                <div style="flex:1;font-size: 0.8em;">
-                    Test Cases - <span class="badge badge-success">3 passed</span><span class="badge badge-danger" style="margin-left: 5px;">5 failed</span> 
-                </div>
                 <div>
                         <button class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
                         <button class="btn btn-sm btn-success">Submit Code</button>
