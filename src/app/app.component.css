@@ -7,10 +7,10 @@ ul li a {
     font-size: 0.85rem;
 }
 
-.container-fluid {
+/* .container-fluid {
     padding-left: 5% !important;
     padding-right: 5% !important;
-}
+} */
 
 .navbar {
     background: linear-gradient(141deg, #3a419480 0%, #1fdb47 70%, #40e82c 75%);
