@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-authentication',
@@ -6,10 +10,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
-
-  constructor() { }
+  loginForm: FormGroup;
+  returnUrl: string;
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+  ) { }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  get f() { return this.loginForm.controls; }
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+    console.log(this.f);
+    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    .pipe(first())
+    .subscribe(
+      data => {
+        console.log(data);
+        this.router.navigate(['/']);
+      },
+      error => {
+        console.log(error);
+      });
   }
 
 }

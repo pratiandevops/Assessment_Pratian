@@ -8,20 +8,20 @@
                             <h3 class="mb-0 my-2">Log IN</h3>
                         </div>
                         <div class="card-body">
-                            <form class="form" role="form" autocomplete="off">
+                            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form" role="form" autocomplete="off">
                                 <div class="form-group">
                                     <label for="inputEmail">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail3" required="">
+                                    <input formControlName="username" type="email" class="form-control" id="inputEmail3" required="">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword">Password</label>
-                                    <input type="password" class="form-control" id="inputPassword3" title="At least 6 characters with letters and numbers" required="">
+                                    <input formControlName="password" type="password" class="form-control" id="inputPassword3" title="At least 6 characters with letters and numbers" required="">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-success btn-lg float-right">Login</button>
                                 </div>
                                 <div class="form-group">
-                                    <button class="mr-5 btn btn-info btn-lg float-right">Sign up</button>
+                                    <button class="mr-5 btn btn-info btn-lg float-right" routerLink="/registration">Sign up</button>
                                 </div>
                             </form>
                         </div>

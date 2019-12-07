@@ -11,7 +11,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'login', component: AuthenticationComponent, outlet: "authentication"},
-  { path: 'signup', component: RegistrationComponent, outlet: "authentication"}
+  { path: 'registration', component: RegistrationComponent, outlet: "authentication"}
 ];
 
 @NgModule({
