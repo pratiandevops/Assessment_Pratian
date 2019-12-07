@@ -69,7 +69,7 @@
     background: #09235f;
     flex:1;
     color:#ffffff;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
 .code-testcase{
@@ -77,4 +77,8 @@
     flex-direction: column;
     height:150px;
     overflow-y: scroll;
+}
+
+.modal-body{
+    font-size: 0.8em;
 }

@@ -18,7 +18,7 @@ export class CompilerService {
 
   public csharpcompiler(code: string, arg: string): Observable<string> {
     return this.http.post<string>(`${environment.compilerURL}/csharpcompiler`,{code, arg})
-      .pipe(map((response: string) => response as string));
+      .pipe(map((response: any) => response as string));
   }
 
   public pcompiler(code: string, arg: string): Observable<string> {

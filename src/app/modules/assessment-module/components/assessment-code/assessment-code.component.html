@@ -2,19 +2,10 @@
     <div class="code-body">
         <div class="code-statement-con">
             <div class="code-title">
-                    Dynamic Array
+                    {{question.AssesmentName}}
             </div>
             <div class="code-description">
-                    Create a list, , of  empty sequences, where each sequence is indexed from  to . The elements within each of the  sequences also use -indexing.
-                    Create an integer, , and initialize it to .
-                    The  types of queries that can be performed on your list of sequences () are described below:
-                    Query: 1 x y
-                    Find the sequence, , at index  in .
-                    Append integer  to sequence .
-                    Query: 2 x y
-                    Find the sequence, , at index  in .
-                    Find the value of element  in  (where  is the size of ) and assign it to .
-                    Print the new value of  on a new line
+                {{question.Description}}
             </div>
         </div>
         <div class="code-editor-con">
@@ -60,12 +51,36 @@
             Oops, times Up
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeAssessment()" data-dismiss="modal">Close Assessment</button>          
+          <button type="button" class="btn btn-secondary" [disabled]="isSubmitAnswerEnabled" (click)="closeAssessment()" data-dismiss="modal">Close Assessment</button>          
         </div>
       </div>
     </div>
   </div>
 
-  <button type="button" #openModal id="openModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  <button type="button" #openModal data-backdrop="static" data-keyboard="false" id="openModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+    Launch demo modal
+  </button>
+
+  <div class="modal fade" id="landingModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="landingModalLongTitle">Rules</h5>
+        </div>
+        <div class="modal-body">
+            Rule 1
+            Rule 1
+            Rule 1
+            Rule 1
+            Rule 1
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="closeLandingModal()" data-dismiss="modal">Start Assessment</button>          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" #landingModal data-backdrop="static" data-keyboard="false" id="openlandingModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#landingModalLong">
     Launch demo modal
   </button>
