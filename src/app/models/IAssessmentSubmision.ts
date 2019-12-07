@@ -1,7 +1,7 @@
 export interface IAssessmentSubmision{
     NumberOfTestCasesPassed: number;
     NumberOfTestCasesGiven: number;
-    AssesmentID: number;
-    AssesmentKey: number;
-    UserUniqueID: number;
+    AssesmentID: string;
+    AssesmentKey: string;
+    UserUniqueID: string;
 }

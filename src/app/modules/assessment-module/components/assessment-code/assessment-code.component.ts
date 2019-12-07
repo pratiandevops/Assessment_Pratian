@@ -9,29 +9,24 @@ import { AssessmentServiceService} from '../../services/assessments.service';
   styleUrls: ['./assessment-code.component.css']
 })
 export class AssessmentCodeComponent implements OnInit {
-  
-  @ViewChild('openModal',{static:true}) openModal:ElementRef;
-  @ViewChild('landingModal',{static:true}) landingModal:ElementRef;
   constructor(private aRouter: ActivatedRoute, private compilerService: CompilerService,
-    private assessmentService: AssessmentServiceService,private router: Router) { }
+    private assessmentService: AssessmentServiceService, private router: Router) { }
+
+    @ViewChild('openModal', {static: true}) openModal: ElementRef;
+    @ViewChild('landingModal', {static: true}) landingModal: ElementRef;
 
   languages = [  {text: 'C++', value: 'cpp'},
   {text: 'C#', value: 'csharp'},
   {text: 'Java', value: 'java'},
   {text: 'Python', value: 'python'}];
-
-  selectedLanguage: string = 'csharp';
-
-  currentTime:string = '00:00:00';
-
+  selectedLanguage = 'csharp';
+  currentTime = '00:00:00';
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
-  code: string= '';
+  code: string;
   output: string[] = [];
   question: any = {};
-
   isSubmitAnswerEnabled = false;
-
-  NumberOfTestCasesPassed: number = 0;
+  NumberOfTestCasesPassed = 0;
 
   ngOnInit() {
     this.landingModal.nativeElement.click();
@@ -49,7 +44,7 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   startTimer(counter){
-      let counterInterval: any = setInterval(() => {
+      const counterInterval: any = setInterval(() => {
       this.currentTime = this.convertSecToClock(counter);
       if (counter === -1) {
         this.submitCode();
@@ -60,32 +55,32 @@ export class AssessmentCodeComponent implements OnInit {
     }, 1000);
   }
 
-  TestValues= [
-    {
-      TestValueID: 1,
-      Inputs: '1',
-      OutPut: 'one'
-    },
-    {
-      TestValueID: 2,
-      Inputs: '2',
-      OutPut: 'two'
-    }
-  ];
+  // TestValues= [
+  //   {
+  //     TestValueID: 1,
+  //     Inputs: '1',
+  //     OutPut: 'one'
+  //   },
+  //   {
+  //     TestValueID: 2,
+  //     Inputs: '2',
+  //     OutPut: 'two'
+  //   }
+  // ];
 
-  async runTestCases(){
+  async runTestCases() {
     this.NumberOfTestCasesPassed = 0;
-    // this.question.TestValues.forEach(async element => {
-    //   await this.runTestCase(element);
-    // });
-    this.TestValues.forEach(async element => {
+    this.question.TestValues.forEach(async element => {
       await this.runTestCase(element);
     });
+    // this.TestValues.forEach(async element => {
+    //   await this.runTestCase(element);
+    // });
   }
 
   async runTestCase(element) {
     switch(this.selectedLanguage) {
-      case 'cpp':{
+      case 'cpp': {
         (async (element) => {
           const data = await this.compilerService.ccompiler(this.code, element.Inputs).toPromise();
           this.printOutput(data, element);
@@ -115,49 +110,48 @@ export class AssessmentCodeComponent implements OnInit {
     }
   }
 
-  printOutput(output, element){
-    if(output.error){
+  printOutput(output, element) {
+    if (output.error) {
       this.output.unshift(output.error);
     }
-    if(output.output){
-      if(element.OutPut.trim() === output.output.trim()){
+    if (output.output) {
+      if (element.OutPut.trim() === output.output.trim()) {
         this.output.unshift(`Input - ${element.Inputs}, Output - ${output.output}, Testcase passed`);
         this.NumberOfTestCasesPassed++;
-      }
-      else{
+      } else {
         this.output.unshift(`Testcase failed`);
       }
     }
   }
 
-  submitCode(){
+  submitCode() {
     this.openModal.nativeElement.click();
     this.assessmentService.submitAssessment({
-      NumberOfTestCasesPassed: 0,
+      NumberOfTestCasesPassed: this.NumberOfTestCasesPassed,
       NumberOfTestCasesGiven: this.question.TestValues.length,
-      AssesmentID: 0,
-      AssesmentKey: 0,
-      UserUniqueID: 0
-    }).subscribe((data)=>{
+      AssesmentID: this.question.AssesmentID,
+      AssesmentKey: '',
+      UserUniqueID: sessionStorage.getItem('username')
+    }).subscribe((data) => {
         this.isSubmitAnswerEnabled = true;
     });
   }
 
-  closeAssessment(){
+  closeAssessment() {
     this.router.navigate(['/assessment']);
   }
- 
-  closeLandingModal(){
+
+  closeLandingModal() {
     const id = this.aRouter.snapshot.paramMap.get('id');
     this.landingModal.nativeElement.click();
     this.getQuestionDetails(id);
   }
 
-  convertSecToClock(totalSeconds){
-    let hours = Math.floor(totalSeconds / 3600);
+  convertSecToClock(totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600);
     totalSeconds %= 3600;
-    let minutes = Math.floor(totalSeconds / 60);
-    let seconds = totalSeconds % 60;
-    return `${hours<10 ? '0':''}${hours}:${minutes<10 ? '0':''}${minutes}:${seconds<10 ? '0':''}${seconds}`;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 }
