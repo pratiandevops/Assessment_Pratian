@@ -8,7 +8,6 @@ import { AssessmentModuleModule } from './modules/assessment-module/assessment-m
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @NgModule({
   declarations: [
     AppComponent
