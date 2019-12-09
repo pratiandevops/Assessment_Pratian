@@ -32,16 +32,13 @@ export class AuthenticationComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    console.log(this.f);
     this.authenticationService.login(this.f.username.value, this.f.password.value)
     .pipe(first())
     .subscribe(
       data => {
-        console.log(data);
-        this.router.navigate(['/']);
+        this.router.navigate([this.returnUrl]);
       },
       error => {
-        console.log(error);
       });
   }
 

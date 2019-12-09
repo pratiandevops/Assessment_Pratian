@@ -13,10 +13,9 @@ export class AuthGuard implements CanActivate {
         const currentUser = this.authenticationService.currentUserValue;
         if (currentUser) {
             // check if route is restricted by role
-            this.router.navigate(['/assessment']);
-            return false;
+            return true;
         }
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+        return false;
     }
-        // not logged in so redirect tES5 bundle generation complete.
-
 }
