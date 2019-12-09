@@ -19,11 +19,10 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-
         let qParams = new HttpParams();
         qParams.append("Email", username);
-        qParams.append("Password",password)
-        return this.http.get<any>(`http://172.30.11.7:8099/api/User`,{params:qParams})
+        qParams.append("Password", password);
+        return this.http.get<any>('http://172.30.11.7:8099/api/User?Email='+username+'&Password='+password)
             .pipe(map(user => {
                 // user = { "Username" : "Santosh", "EmailID" : "s.k.senapati1993@gmail.com"} 
                 if (user) {
