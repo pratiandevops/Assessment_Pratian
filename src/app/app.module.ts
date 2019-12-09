@@ -7,6 +7,9 @@ import { AssessmentBuilderModuleModule } from './modules/assessment-builder-modu
 import { AssessmentModuleModule } from './modules/assessment-module/assessment-module.module';
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +22,12 @@ import { HttpClientModule } from '@angular/common/http';
     AssessmentBuilderModuleModule,
     AssessmentModuleModule,
     SharedModulesModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
     AppRoutingModule
   ],
   providers: [],
