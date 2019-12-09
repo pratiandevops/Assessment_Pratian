@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IUser } from 'src/app/models/IUser';
+
 
 @Component({
   selector: 'app-sales-home',
@@ -6,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sales-home.component.css']
 })
 export class SalesHomeComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

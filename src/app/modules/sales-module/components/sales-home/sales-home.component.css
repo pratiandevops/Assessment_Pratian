@@ -1,145 +1,440 @@
-.brand-wrapper {
-    margin-top: 0.2rem;
-    height: 20em;
-    background: url(/assets/images/homebg.jpg);
+.card {
+    margin: auto;
+    height: 400px;
+    font-weight: 400;
+    background-image: url(/assets/images/LandingPage10.jpg);
     background-size: 100% 100%;
-    border-radius: .5rem;
+    opacity: 0.9;
+    -webkit-box-shadow: 0 8px 20px 0 rgba(40, 37, 89, .6);
+    box-shadow: 0 1px 20px 0 rgba(40, 37, 89, .6);
+    margin-bottom: 3rem;
+    display: flex;
+}
+
+.logo-text {
+    color: #fff;
+    font-family: exo;
+    font-weight: bold;
+    margin: auto;
+}
+
+.tag-line {
+    display: block;
+    font-family: exo;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+#blinking {
+    animation: blinkingText 1.5s infinite;
+}
+
+@keyframes blinkingText {
+    0% {
+        color: #23669a;
+    }
+    49% {
+        color: transparent;
+    }
+    50% {
+        color: transparent;
+    }
+    99% {
+        color: transparent;
+    }
+    100% {
+        color: #23669a;
+    }
+}
+
+.cb {
+    margin-top: -10rem;
+}
+
+.component-badge {
+    height: 12rem;
+    padding: 1.5rem;
+    border-radius: 5px;
+    margin-bottom: 2.5rem;
+}
+
+.component-badge>h1 {
+    font-family: exo;
+    color: #fff;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.component-badge-count {
+    font-family: exo;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 3rem;
+    font-size: 40px;
+}
+
+.bg-gradient-danger {
+    background: linear-gradient(to right, #ffbf96, #fe7096);
+}
+
+.bg-gradient-info {
+    background: linear-gradient(to right, #90caf9, #047edf 99%);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(to right, #84d9d2, #07cdae);
+}
+
+.card-img-absolute {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    height: 100%;
+}
+
+.dashboard-badges {
+    padding: 2rem;
+}
+
+.badge-content {
+    padding: 2rem;
+    height: 20rem;
+    -webkit-box-shadow: 0 6px 34px 0 rgba(139, 171, 218, 0.6);
+    box-shadow: 0 6px 34px 0 rgba(197, 220, 255, 0.6);
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    -webkit-transition: -webkit-transform .25s;
+    transition: -webkit-transform .25s ease;
+    transition: transform .25s ease;
+    transition: transform .25s ease, -webkit-transform .25s ease;
+}
+
+.badge-content:hover {
+    -webkit-box-shadow: 0 16px 40px 0 rgba(182, 205, 239, 0.97);
+    box-shadow: 0 16px 40px 0 rgba(182, 205, 239, 0.97);
+    -webkit-transform: translateY(-1rem);
+    transform: translateY(-1rem);
+}
+
+.badge-content:hover .fa,
+.typing {
+    color: #06ef85;
+}
+
+.badge-logo {
+    text-align: center;
+}
+
+.badge-header {
+    padding: 1rem;
+    font-family: exo;
+    text-align: center;
+    font-size: x-large;
+    color: #23669a;
+}
+
+.badge-desc {
+    font-family: exo;
+    text-align: center;
+    color: #23669a;
+    padding: 0rem 3rem 0rem 3rem;
+    font-size: smaller;
+}
+
+.icon-color {
+    color: #23669a;
+}
+
+#version {
+    font-size: 12px;
+}
+
+.align-center {
+    text-align: center !important;
+}
+
+.align-center>h3 {
+    font-family: exo;
+    color: #23669a;
+    font-weight: 600;
+}
+
+.inclusive-icon>i {
+    color: #23669a;
+}
+
+.inclusive-icon {
+    margin-top: -1rem;
+}
+
+.inclusive-icon::after,
+.inclusive-icon::before {
+    display: inline-block;
+    margin-top: -4px;
+    vertical-align: middle;
+    content: "";
+    background-color: #23669a;
+    width: 48px;
+    height: 1px;
 }
 
 .serviceBox {
-    color: #9f9f9f;
-    font-family: 'Lato', sans-serif;
+    font-family: exo;
     text-align: center;
-    padding: 0 15px;
+    padding: 20px 15px 60px;
+    color: #23669a;
 }
 
 .serviceBox .service-icon {
-    background: rgba(0, 0, 0, 0.05);
-    line-height: 126px;
-    width: 126px;
-    height: 126px;
-    margin: 0 auto 30px;
+    color: #23669a;
+    background-color: #fff;
+    font-size: 50px;
+    line-height: 100px;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto 40px;
     border-radius: 50%;
+    border: 2px solid #23669a;
     display: block;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
-    transition: all 0.3s ease 0s;
+    transition: all 0.3s;
 }
 
 .serviceBox:hover .service-icon {
-    box-shadow: 0 0 25px -5px #707070;
-    cursor: pointer;
-}
-
-.serviceBox .service-icon:before,
-.serviceBox .service-icon:after {
-    content: "\1F421";
-    color: #4385F5;
-    font-size: 60px;
-    font-family: FontAwesome;
-    font-weight: 900;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transition: all 0.3s ease 0s;
-}
-
-.serviceBox .service-icon:after {
-    color: #fff;
-    background: #4385F5;
-    border-radius: 50%;
-    top: 100%;
-    left: 0;
-}
-
-.serviceBox:hover .service-icon:before {
-    font-family: FontAwesome;
-    top: -100%;
-}
-
-.serviceBox:hover .service-icon:after {
-    top: 0;
+    border-color: transparent;
+    box-shadow: 0 0 10px #fff, 0 -10px 0 10px #23669a;
 }
 
 .serviceBox .title {
-    color: #4385F5;
-    font-size: 22px;
-    font-weight: 600;
-    text-transform: capitalize;
-    margin: 0 0 10px;
-    transition: all 0.3s ease 0s;
+    color: #23669a;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 0 10px;
+    margin-bottom: 15px;
+    transition: all 0.3s;
 }
 
 .serviceBox:hover .title {
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+    color: #23669a;
+}
+
+.serviceBox:hover .service-icon {
+    color: #23669a;
 }
 
 .serviceBox .description {
-    font-size: 14px;
-    line-height: 25px;
-    margin: 0;
+    font-size: 15px;
+    text-align: center;
+    line-height: 27px;
+    margin-bottom: 20px;
 }
 
-.serviceBox.purple .service-icon:before,
-.serviceBox.purple .service-icon:after {
-    content: "\f0ac";
-    font-family: FontAwesome;
-    color: #a52eea;
-}
-
-.serviceBox.purple .service-icon:after {
+.serviceBox .read-more {
     color: #fff;
-    background: #a52eea;
+    background: #23669a;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: -56px;
+    padding: 5px;
+    display: block;
+    transform: rotateX(-90deg);
+    transform-origin: top center;
+    -webkit-clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+    clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+    transition: all 0.5s;
 }
 
-.serviceBox.purple .title {
-    color: #a52eea;
+.serviceBox:hover .read-more {
+    box-shadow: 0 0 10px #fff inset;
+    transform: rotateX(0);
 }
 
-.serviceBox.green .service-icon:before,
-.serviceBox.green .service-icon:after {
-    content: "\f121";
-    font-family: FontAwesome;
-    color: #34B67A;
+.serviceBox .read-more:hover {
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px #000;
+    text-decoration: none;
 }
 
-.serviceBox.green .service-icon:after {
-    color: #fff;
-    background: #34B67A;
+.serviceBox.blue .service-icon {
+    color: #34C3EB;
+    border-color: #34C3EB;
 }
 
-.serviceBox.green .title {
-    color: #34B67A;
+.serviceBox.blue:hover .service-icon {
+    border-color: transparent;
+    box-shadow: 0 0 10px #fff, 0 -10px 0 10px #34C3EB;
 }
 
-.serviceBox.red .service-icon:before,
-.serviceBox.red .service-icon:after {
-    content: "\f0e8";
-    font-family: FontAwesome;
-    color: #FF4761;
+.serviceBox.blue:hover .title {
+    color: #34C3EB;
 }
 
-.serviceBox.red .service-icon:after {
-    color: #fff;
-    background: #FF4761;
+.serviceBox.blue .read-more {
+    background: #34C3EB;
 }
 
-.serviceBox.red .title {
-    color: #FF4761;
+.serviceBox.orange .service-icon {
+    color: #FF8214;
+    border-color: #FF8214;
 }
 
-@media only screen and (max-width:1200px) {
-    .serviceBox {
-        margin: 0;
-    }
+.serviceBox.orange:hover .service-icon {
+    border-color: transparent;
+    box-shadow: 0 0 10px #fff, 0 -10px 0 10px #FF8214;
+}
+
+.serviceBox.orange:hover .title {
+    color: #FF8214;
+}
+
+.serviceBox.orange .read-more {
+    background: #FF8214;
+}
+
+.serviceBox.green .service-icon {
+    color: #8FB900;
+    border-color: #8FB900;
+}
+
+.serviceBox.green:hover .service-icon {
+    border-color: transparent;
+    box-shadow: 0 0 10px #fff, 0 -10px 0 10px #8FB900;
+}
+
+.serviceBox.green:hover .title {
+    color: #8FB900;
+}
+
+.serviceBox.green .read-more {
+    background: #8FB900;
 }
 
 @media only screen and (max-width:990px) {
     .serviceBox {
-        margin: 0 0 40px;
+        margin: 0 0 50px;
+    }
+}
+
+.demo {
+    background: #e5e5e5;
+}
+
+.our-team {
+    border: 2px solid #23669a;
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px;
+    z-index: 1;
+    position: relative;
+    font-family: exo;
+}
+
+.our-team:before,
+.our-team:after {
+    content: "";
+    width: 100%;
+    height: 104%;
+    background: #23669a;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: -1;
+    transform: translateY(-50%) scaleX(0.3);
+    transition: all 0.3s ease 0s;
+}
+
+.our-team:after {
+    width: 106%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(0.25);
+}
+
+.our-team:hover:before {
+    transform: translateY(-50%) scaleX(0.7);
+}
+
+.our-team:hover:after {
+    transform: translate(-50%, -50%) scaleY(0.7);
+}
+
+.our-team img {
+    width: 100%;
+    min-height: 40rem;
+    max-height: 40rem;
+    border-radius: 10px;
+    transition: all 0.3s ease 0s;
+}
+
+.our-team .team-content {
+    width: 93%;
+    padding: 25px 0 10px;
+    background: #23669a;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    opacity: 0;
+    -webkit-clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);
+    clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);
+    transform: translateX(-50%);
+    transition: all 0.3s cubic-bezier(0.5, 0.2, 0.1, 0.9);
+}
+
+.our-team:hover .team-content {
+    bottom: 10px;
+    opacity: 1;
+}
+
+.our-team .title {
+    font-size: 25px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.our-team .post {
+    display: block;
+    font-size: 16px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.our-team .social {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.our-team .social li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.our-team .social li a {
+    display: block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 20px;
+    color: #23669a;
+    transition: all 0.3s ease 0s;
+}
+
+.our-team .social li a:hover {
+    background: linear-gradient(to bottom, #23669a, #053357);
+    box-shadow: 0 0 0 5px #23669a;
+    color: #fff;
+}
+
+@media only screen and (max-width: 990px) {
+    .our-team {
+        margin-bottom: 30px;
     }
 }
