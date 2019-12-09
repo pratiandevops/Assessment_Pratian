@@ -1,0 +1,56 @@
+.select_language {
+    margin-left: 220px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: blueviolet
+}
+
+#language {
+    margin-left: 10px;
+    color: black
+}
+
+.output {
+    margin-right: 250px;
+    float: right;
+    font-weight: bold
+}
+
+.CodeMirror {
+    float: left;
+    width: 49%;
+    border: 1px solid black;
+    height: 500px;
+}
+
+.text-area {
+    width: 49%;
+    float: right;
+    height: 494px;
+    border: 1px solid black;
+    border-left: 1;
+}
+
+.submit {
+    margin-left: 100px;
+    font-weight: bold
+}
+
+#inputRadio {
+    margin-left: 25px
+}
+
+.submit_button {
+    margin-left: 50px;
+    margin-top: 10px;
+    color: blue;
+    font-weight: bold
+}
+
+.userInput {
+    width: 49%;
+    float: left;
+    height: 200px;
+    border: 1px solid black;
+    border-left: 1;
+}
