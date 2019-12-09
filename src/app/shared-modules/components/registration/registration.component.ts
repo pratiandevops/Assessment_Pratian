@@ -46,7 +46,6 @@ export class RegistrationComponent implements OnInit {
         this.router.navigate(['/assessment']);
       },
       error => {
-        console.log(error);
       });
   }
 }

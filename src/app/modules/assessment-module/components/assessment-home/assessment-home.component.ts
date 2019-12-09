@@ -12,6 +12,7 @@ import { AuthenticationService } from 'src/app/shared-modules/services/authentic
 })
 export class AssessmentHomeComponent implements OnInit {
   user: IUser;
+  email: string;
   assessments: any;
   constructor(
     private assessmentServiceService: AssessmentServiceService,
@@ -19,9 +20,12 @@ export class AssessmentHomeComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.assessmentServiceService.getAssessmentData().subscribe(data => {
+    this.authentication.currentUser.subscribe((data) => {
+      this.user = data;
+      this.email = this.user.username;
+    });
+    this.assessmentServiceService.getAssessmentData(this.email).subscribe(data => {
       this.assessments = data;
-      console.log("Assessments", this.assessments);
     });
   }
 

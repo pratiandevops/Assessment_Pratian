@@ -12,8 +12,8 @@ import { IAssessmentSubmision } from 'src/app/models/IAssessmentSubmision';
 })
 export class AssessmentServiceService {
   constructor(private http: HttpClient) { }
-  public getAssessmentData(): Observable<IAssessment> {
-    return this.http.get<IAssessment>("assets/json/Assessment.json")
+  public getAssessmentData(email:string): Observable<IAssessment> {
+    return this.http.get<IAssessment>(`${environment.assessmentURL}/api/Assesment/GetAssesments?UserID=${email}`)
       .pipe(map((response: IAssessment) => response as IAssessment));
   }
 
