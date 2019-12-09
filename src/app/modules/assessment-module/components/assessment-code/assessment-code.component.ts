@@ -19,7 +19,7 @@ export class AssessmentCodeComponent implements OnInit {
     @ViewChild('landingModal', {static: true}) landingModal: ElementRef;
     @ViewChild('submissionModal', {static: true}) submissionModal: ElementRef;
 
-  languages = [];
+  languages = [{name: 'csharp', extn: 'cs'},{name:'cpp',extn:'cpp'} ,{name:'java',extn:'java'},{name:'python',extn:'py'}];
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
@@ -32,9 +32,9 @@ export class AssessmentCodeComponent implements OnInit {
 
   ngOnInit() {
     this.landingModal.nativeElement.click();
-    this.compilerService.getAllLanguages().subscribe((data) => {
-      this.languages = data;
-    });
+    // this.compilerService.getAllLanguages().subscribe((data) => {
+    //   this.languages = data;
+    // });
   }
 
   getQuestionDetails(id){
@@ -77,7 +77,7 @@ export class AssessmentCodeComponent implements OnInit {
       stdin: element.Inputs,
       files: [
           {
-            name: 'main.cs',
+            name: `main.${this.languages.filter(val => val.name === this.selectedLanguage)[0].extn}`,
             content: this.code
            }
         ]
@@ -133,6 +133,9 @@ export class AssessmentCodeComponent implements OnInit {
       } else {
         this.output.unshift(`Testcase failed`);
       }
+      if(this.NumberOfTestCasesPassed === this.TotalTestCases){
+        this.output.unshift(`All ${this.TotalTestCases} Testcases are passed`);
+      }
     }
   }
 
@@ -143,7 +146,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
-      UserUniqueID: sessionStorage.getItem('username')
+      UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
       this.openModal.nativeElement.click();
@@ -157,7 +160,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
-      UserUniqueID: sessionStorage.getItem('username')
+      UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
       this.submissionModal.nativeElement.click();
