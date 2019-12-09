@@ -9,33 +9,41 @@ import { AssessmentServiceService} from '../../services/assessments.service';
   styleUrls: ['./assessment-code.component.css']
 })
 export class AssessmentCodeComponent implements OnInit {
-  constructor(private aRouter: ActivatedRoute, private compilerService: CompilerService,
-    private assessmentService: AssessmentServiceService, private router: Router) { }
+  constructor(
+    private aRouter: ActivatedRoute,
+    private compilerService: CompilerService,
+    private assessmentService: AssessmentServiceService,
+    private router: Router) { }
 
     @ViewChild('openModal', {static: true}) openModal: ElementRef;
     @ViewChild('landingModal', {static: true}) landingModal: ElementRef;
+    @ViewChild('submissionModal', {static: true}) submissionModal: ElementRef;
 
-  languages = [  {text: 'C++', value: 'cpp'},
-  {text: 'C#', value: 'csharp'},
-  {text: 'Java', value: 'java'},
-  {text: 'Python', value: 'python'}];
+  languages = [];
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
   code: string;
   output: string[] = [];
   question: any = {};
-  isSubmitAnswerEnabled = false;
   NumberOfTestCasesPassed = 0;
+  TotalTestCases = 0;
+  isLoading = false;
 
   ngOnInit() {
     this.landingModal.nativeElement.click();
+    this.compilerService.getAllLanguages().subscribe((data) => {
+      this.languages = data;
+    });
   }
 
   getQuestionDetails(id){
-    this.assessmentService.getAssessmentDetailsByID(id).subscribe((data)=>{   
+    this.isLoading = true;
+    this.assessmentService.getAssessmentDetailsByID(id).subscribe((data) => {
       this.question = data[0];
       this.startTimer(this.question.TimeInMinutes * 60);
+      this.TotalTestCases = this.question.TestValues.length;
+      this.isLoading = false;
     });
   }
 
@@ -55,68 +63,72 @@ export class AssessmentCodeComponent implements OnInit {
     }, 1000);
   }
 
-  // TestValues= [
-  //   {
-  //     TestValueID: 1,
-  //     Inputs: '1',
-  //     OutPut: 'one'
-  //   },
-  //   {
-  //     TestValueID: 2,
-  //     Inputs: '2',
-  //     OutPut: 'two'
-  //   }
-  // ];
-
   async runTestCases() {
     this.NumberOfTestCasesPassed = 0;
-    this.question.TestValues.forEach(async element => {
-      await this.runTestCase(element);
+    this.question.TestValues.forEach(element => {
+      this.runTestCase(element);
     });
-    // this.TestValues.forEach(async element => {
-    //   await this.runTestCase(element);
-    // });
   }
 
-  async runTestCase(element) {
-    switch(this.selectedLanguage) {
-      case 'cpp': {
-        (async (element) => {
-          const data = await this.compilerService.ccompiler(this.code, element.Inputs).toPromise();
-          this.printOutput(data, element);
-        })(element);
-        break;
-      }
-      case 'csharp':{
-        (async (element) => {
-          const data = await this.compilerService.csharpcompiler(this.code, element.Inputs).toPromise();
-          this.printOutput(data, element);
-        })(element);
-        break;
-      }
-      case 'java':{
-        (async (element) => {
-          const data = await this.compilerService.jcompiler(this.code, element.Inputs).toPromise();
-          this.printOutput(data, element);
-        })(element);
-        break;
-      }
-      case 'python':{
-        (async (element) => {
-          const data = await this.compilerService.pcompiler(this.code, element.Inputs).toPromise();
-          this.printOutput(data, element);
-        })(element);
-      }
-    }
+ runTestCase(element) {
+      this.isLoading = true;
+      this.compilerService.glotCompiler(this.selectedLanguage,
+      {
+      stdin: element.Inputs,
+      files: [
+          {
+            name: 'main.cs',
+            content: this.code
+           }
+        ]
+    }).subscribe((data) => {
+      this.printOutput(data, element);
+      this.isLoading = false;
+    });
   }
+
+  // async runTestCase(element) {
+  //   switch(this.selectedLanguage) {
+  //     case 'cpp': {
+  //       (async (element) => {
+  //         const data = await this.compilerService.ccompiler(this.code, element.Inputs).toPromise();
+  //         this.printOutput(data, element);
+  //       })(element);
+  //       break;
+  //     }
+  //     case 'csharp':{
+  //       (async (element) => {
+  //         const data = await this.compilerService.csharpcompiler(this.code, element.Inputs).toPromise();
+  //         this.printOutput(data, element);
+  //       })(element);
+  //       break;
+  //     }
+  //     case 'java':{
+  //       (async (element) => {
+  //         const data = await this.compilerService.jcompiler(this.code, element.Inputs).toPromise();
+  //         this.printOutput(data, element);
+  //       })(element);
+  //       break;
+  //     }
+  //     case 'python':{
+  //       (async (element) => {
+  //         const data = await this.compilerService.pcompiler(this.code, element.Inputs).toPromise();
+  //         this.printOutput(data, element);
+  //       })(element);
+  //     }
+  //   }
+  // }
+
+
+
 
   printOutput(output, element) {
-    if (output.error) {
+    if (output.error !== '') {
       this.output.unshift(output.error);
     }
-    if (output.output) {
-      if (element.OutPut.trim() === output.output.trim()) {
-        this.output.unshift(`Input - ${element.Inputs}, Output - ${output.output}, Testcase passed`);
+    if (output.stdout) {
+      if (element.OutPut.trim() === output.stdout.trim()) {
+        this.output.unshift(`Input - ${element.Inputs}, Output - ${output.stdout}, Testcase passed`);
         this.NumberOfTestCasesPassed++;
       } else {
         this.output.unshift(`Testcase failed`);
@@ -125,17 +137,33 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   submitCode() {
-    this.openModal.nativeElement.click();
+    this.isLoading = true;
     this.assessmentService.submitAssessment({
       NumberOfTestCasesPassed: this.NumberOfTestCasesPassed,
-      NumberOfTestCasesGiven: this.question.TestValues.length,
+      NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
       UserUniqueID: sessionStorage.getItem('username')
     }).subscribe((data) => {
-        this.isSubmitAnswerEnabled = true;
+      this.isLoading = false;
+      this.openModal.nativeElement.click();
     });
   }
+
+  submitCodeOnClick() {
+    this.isLoading = true;
+    this.assessmentService.submitAssessment({
+      NumberOfTestCasesPassed: this.NumberOfTestCasesPassed,
+      NumberOfTestCasesGiven: this.TotalTestCases,
+      AssesmentID: this.question.AssesmentID,
+      AssesmentKey: '',
+      UserUniqueID: sessionStorage.getItem('username')
+    }).subscribe((data) => {
+      this.isLoading = false;
+      this.submissionModal.nativeElement.click();
+    });
+  }
+
 
   closeAssessment() {
     this.router.navigate(['/assessment']);

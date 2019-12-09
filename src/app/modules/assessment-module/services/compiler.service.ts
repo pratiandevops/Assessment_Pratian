@@ -30,4 +30,14 @@ export class CompilerService {
     return this.http.post<string>(`${environment.compilerURL}/jcompiler`,{code, arg})
       .pipe(map((response: string) => response as string));
   }
+
+  public getAllLanguages(): Observable<any> {
+    return this.http.get<any>(`${environment.compilerURL}/glotapi/languages`)
+      .pipe(map((response: any) => response));
+  }
+
+  public glotCompiler(language: string, data: any): Observable<any> {
+    return this.http.post<any>(`${environment.compilerURL}/glotapi/languages/${language}/latest`, data)
+      .pipe(map((response: any) => response));
+  }
 }

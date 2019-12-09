@@ -13,7 +13,7 @@
                 <div style="flex:1">
                         <label style="margin-right: 5px;">Language:</label>
                         <select name="language" [(ngModel)]="selectedLanguage" (change)="changeLanguage()">
-                            <option *ngFor="let item of languages" [value]="item.value">{{item.text}}</option>
+                            <option *ngFor="let item of languages" [value]="item.name">{{item.name}}</option>
                         </select>
                 </div>
                 <div>
@@ -25,7 +25,7 @@
             </div>
             <div class="code-footer">
                     <button class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
-                    <!-- <button class="btn btn-sm btn-success">Submit Code</button> -->
+                    <button *ngIf="NumberOfTestCasesPassed==TotalTestCases && TotalTestCases>0" (click)="submitCodeOnClick()" class="btn btn-sm btn-success">Submit Code</button>
             </div>
             <div class="code-testcase">
                 <div class="output-terminal">
@@ -45,13 +45,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Oops, times Up</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Times Up</h5>
         </div>
         <div class="modal-body">
-            Oops, times Up
+            Sorry, you have taken more time than expected. Try again later.
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" [disabled]="isSubmitAnswerEnabled" (click)="closeAssessment()" data-dismiss="modal">Close Assessment</button>          
+          <button type="button" class="btn btn-secondary" (click)="closeAssessment()" data-dismiss="modal">Close Assessment</button>          
         </div>
       </div>
     </div>
@@ -92,5 +92,28 @@
   </div>
 
   <button type="button" #landingModal data-backdrop="static" data-keyboard="false" id="openlandingModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#landingModalLong">
+    Launch demo modal
+  </button>
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner-border text-warning"></div>
+  </div>
+  
+  <div class="modal fade" id="submissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="submissionModalTitle">Congratulations</h5>
+        </div>
+        <div class="modal-body">
+            Your code has been submitted !
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="closeAssessment()" data-dismiss="modal">Close Assessment</button>          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" #submissionModal data-backdrop="static" data-keyboard="false" id="submissionModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#submissionModal">
     Launch demo modal
   </button>
