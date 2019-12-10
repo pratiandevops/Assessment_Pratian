@@ -19,7 +19,7 @@ export class AssessmentCodeComponent implements OnInit {
     @ViewChild('landingModal', {static: true}) landingModal: ElementRef;
     @ViewChild('submissionModal', {static: true}) submissionModal: ElementRef;
 
-  languages = [{name: 'csharp', extn: 'cs'},{name:'cpp',extn:'cpp'} ,{name:'java',extn:'java'},{name:'python',extn:'py'}];
+  languages = [{name: 'csharp', extn: 'cs'}, {name: 'cpp', extn: 'cpp'}, {name: 'java', extn: 'java'}, {name: 'python', extn: 'py'}];
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
@@ -84,6 +84,7 @@ export class AssessmentCodeComponent implements OnInit {
            }
         ]
     }).subscribe((data) => {
+      console.log(data);
       this.printOutput(data, element);
       this.isLoading = false;
     });

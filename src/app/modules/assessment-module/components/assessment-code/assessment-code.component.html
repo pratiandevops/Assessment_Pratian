@@ -25,7 +25,7 @@
             </div>
             <div class="code-footer">
                     <button class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
-                    <button *ngIf="NumberOfTestCasesPassed==TotalTestCases && TotalTestCases>0" (click)="submitCodeOnClick()" class="btn btn-sm btn-success">Submit Code</button>
+                    <button *ngIf="NumberOfTestCasesPassed>0 && TotalTestCases>0" (click)="submitCodeOnClick()" class="btn btn-sm btn-success">Submit Code</button>
             </div>
             <div class="code-testcase">
                 <div class="output-terminal">
@@ -76,7 +76,7 @@
 
 
   
-  <div class="modal fade" id="submissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal fade" id="submissionModal" tabindex="-1" role="dialog" aria-labelledby="congratulationModalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
