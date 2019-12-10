@@ -66,7 +66,7 @@ pipeline{
 				sh 'docker-compose stop'
 				echo 'Container Stopped'
 				echo 'Starting New Updated Container'
-				sh 'docker-compose up -d'
+				sh 'docker-compose up --no-build -d'
 				echo 'Container is Up and Running'
 			}
 		}
