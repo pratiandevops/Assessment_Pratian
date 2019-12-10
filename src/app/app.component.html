@@ -15,7 +15,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link font-weight-bold" *ngIf="!user" routerLink="/login">Login</a>
-                <a class="nav-link font-weight-bold" *ngIf="user" (click)="logout()">logout</a>
+                <a class="nav-link font-weight-bold" style="cursor: pointer;" *ngIf="user" (click)="logout()">logout</a>
             </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0">
