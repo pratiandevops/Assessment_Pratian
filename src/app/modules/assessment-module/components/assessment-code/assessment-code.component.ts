@@ -29,6 +29,7 @@ export class AssessmentCodeComponent implements OnInit {
   NumberOfTestCasesPassed = 0;
   TotalTestCases = 0;
   isLoading = false;
+  counter = 0;
 
   ngOnInit() {
     this.landingModal.nativeElement.click();
@@ -60,6 +61,7 @@ export class AssessmentCodeComponent implements OnInit {
         this.currentTime = this.convertSecToClock(0);
       }
       counter--;
+      this.counter = counter;
     }, 1000);
   }
 
@@ -146,6 +148,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
+      Factor: (parseFloat('1') / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
@@ -160,6 +163,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
+      Factor: (parseFloat(this.counter.toString()) / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
