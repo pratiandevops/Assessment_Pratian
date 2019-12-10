@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IUser } from 'src/app/models/IUser';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -23,13 +24,16 @@ export class AuthenticationService {
         let qParams = new HttpParams();
         qParams.append("Email", username);
         qParams.append("Password", password);
-        return this.http.get<any>('http://172.30.11.7:8099/api/User?Email=' + username + '&Password=' + password)
+        
+        return this.http.get<any>(`${environment.assessmentURL}/api/User?Email=${username}&Password=${password}`)
             .pipe(map(user => {
-                // user = { "Username" : "Santosh", "EmailID" : "s.k.senapati1993@gmail.com"} 
                 if (user) {
                     sessionStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                     this.toastr.success('Welcome Back !!', user.UserName);
+                }
+                else {
+                    this.toastr.error('Wrong Credentials', 'Error');
                 }
                 
                 return user;
@@ -37,12 +41,16 @@ export class AuthenticationService {
     }
 
     signup(data) {
-        return this.http.post<any>(`http://172.30.11.7:8099/api/User`, data)
+        return this.http.post<any>(`${environment.assessmentURL}/api/User`, data)
             .pipe(map(user => {
                 if (user) {
                     sessionStorage.setItem('currentUser', JSON.stringify(user));
+                    this.currentUserSubject.next(user);
+                    this.toastr.success('Welcome !!', user.UserName);
                 }
-
+                else {
+                    this.toastr.error('User already exist', 'Error');
+                }
                 return user;
             }));
     }

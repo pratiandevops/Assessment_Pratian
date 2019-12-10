@@ -36,7 +36,9 @@ export class AuthenticationComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data => {
-        this.router.navigate([this.returnUrl]);
+        if (data) {
+          this.router.navigate([this.returnUrl]);
+        }
       },
       error => {
       });

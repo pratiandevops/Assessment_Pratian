@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators';
 export class RegistrationComponent implements OnInit {
 
   signupForm: FormGroup;
+  returnUrl: string;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -26,6 +27,7 @@ export class RegistrationComponent implements OnInit {
       password: ['', Validators.required],
       phone: ['', Validators.required]
     });
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get f() { return this.signupForm.controls; }
@@ -43,7 +45,9 @@ export class RegistrationComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data => {
-        this.router.navigate(['/assessment']);
+        if (data) {
+          this.router.navigate([this.returnUrl]);
+        }
       },
       error => {
       });
