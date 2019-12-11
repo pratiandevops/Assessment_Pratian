@@ -24,27 +24,27 @@ export class AssessmentCodeComponent implements OnInit {
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
-  code = `using System;                
+  code = `using System;
   namespace HelloWorldApp
-  {                        
+  {
       class Praleso
       {
           static void Main(string[] args)
           {
                Console.WriteLine("Hello World");
-              
-          }   
+          }
       }
   }`;
   output: string[] = [];
   question: any = {
-    AssesmentName:'Hello World',
+    AssesmentName: 'Hello World',
     Description: 'Write a program to print Hello World'
   };
   NumberOfTestCasesPassed = 0;
   TotalTestCases = 0;
   isLoading = false;
   counter = 0;
+  id:any;
 
   ngOnInit() {
     this.landingModal.nativeElement.click();
@@ -62,7 +62,7 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   getQuestionDetails(id){
-    this.code ='';
+    this.code = this.getCodeFromLocalStorage(id);
     this.isLoading = true;
     this.assessmentService.getAssessmentDetailsByID(id).subscribe((data) => {
       this.question = data[0];
@@ -86,7 +86,26 @@ export class AssessmentCodeComponent implements OnInit {
       }
       counter--;
       this.counter = counter;
+      if(counter % 10 === 0){
+        this.storeCodeInLocal();
+      }
     }, 1000);
+  }
+
+  storeCodeInLocal() {
+    sessionStorage.setItem('code', JSON.stringify({
+      id: this.id,
+      code: this.code
+    }));
+  }
+
+  getCodeFromLocalStorage(id) {
+    const cashedCode = JSON.parse(sessionStorage.getItem('code'));
+    if(id == cashedCode.id) {
+      return cashedCode.code;
+    } else {
+      return '';
+    }
   }
 
   async runTestCases() {
@@ -108,46 +127,10 @@ export class AssessmentCodeComponent implements OnInit {
            }
         ]
     }).subscribe((data) => {
-      console.log(data);
       this.printOutput(data, element);
       this.isLoading = false;
     });
   }
-
-  // async runTestCase(element) {
-  //   switch(this.selectedLanguage) {
-  //     case 'cpp': {
-  //       (async (element) => {
-  //         const data = await this.compilerService.ccompiler(this.code, element.Inputs).toPromise();
-  //         this.printOutput(data, element);
-  //       })(element);
-  //       break;
-  //     }
-  //     case 'csharp':{
-  //       (async (element) => {
-  //         const data = await this.compilerService.csharpcompiler(this.code, element.Inputs).toPromise();
-  //         this.printOutput(data, element);
-  //       })(element);
-  //       break;
-  //     }
-  //     case 'java':{
-  //       (async (element) => {
-  //         const data = await this.compilerService.jcompiler(this.code, element.Inputs).toPromise();
-  //         this.printOutput(data, element);
-  //       })(element);
-  //       break;
-  //     }
-  //     case 'python':{
-  //       (async (element) => {
-  //         const data = await this.compilerService.pcompiler(this.code, element.Inputs).toPromise();
-  //         this.printOutput(data, element);
-  //       })(element);
-  //     }
-  //   }
-  // }
-
-
-
 
   printOutput(output, element) {
     if (output.error !== '') {
@@ -173,6 +156,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
+      SubmittedCode: this.code,
       Factor: (parseFloat('1') / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
@@ -188,6 +172,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
+      SubmittedCode: this.code,
       Factor: (parseFloat(this.counter.toString()) / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
@@ -202,9 +187,9 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   closeLandingModal() {
-    const id = this.aRouter.snapshot.paramMap.get('id');
+    this.id = this.aRouter.snapshot.paramMap.get('id');
     this.landingModal.nativeElement.click();
-    this.getQuestionDetails(id);
+    this.getQuestionDetails(this.id);
   }
 
   convertSecToClock(totalSeconds) {

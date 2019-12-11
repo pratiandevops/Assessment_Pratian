@@ -20,6 +20,7 @@ export class AssessmentHomeComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    sessionStorage.setItem('code', '');
     this.authentication.currentUser.subscribe((data) => {
       this.user = data;
       this.email = this.user.username;
