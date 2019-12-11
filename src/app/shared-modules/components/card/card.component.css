@@ -90,3 +90,18 @@
 .logo {
     color: #898ebd;
 }
+
+.disable-card{
+    background: #4a4a4a52;
+    position: relative;
+}
+
+.disable-card:after{
+    content: 'Submitted';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    font-weight: bold;
+    color: #297741;
+}

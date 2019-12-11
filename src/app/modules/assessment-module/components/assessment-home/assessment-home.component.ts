@@ -22,12 +22,13 @@ export class AssessmentHomeComponent implements OnInit {
   ngOnInit() {
     this.authentication.currentUser.subscribe((data) => {
       this.user = data;
-      this.email = this.user.username;
+      this.email = this.user.Email;
+      this.assessmentServiceService.getAssessmentData(this.email).subscribe(data => {
+        this.assessments = data;
+        console.log(data);
+      });
     });
-    this.assessmentServiceService.getAssessmentData(this.email).subscribe(data => {
-      this.assessments = data;
-      console.log(this.assessments);
-    });
+    
   }
 
   getAssessment(assessment: IAssessment) {

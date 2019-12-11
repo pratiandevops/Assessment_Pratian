@@ -1,5 +1,5 @@
 <div class="component-tile-box">
-    <div class="component-tile">
+    <div class="component-tile" [ngClass]="{'disable-card': assessment.Result != null}">
         <div class="component-circle-logo logo" [ngClass]="(assessment.AssesmentType=='MCQ')?'image-mcq-url':'image-code-url'"></div>
         <div class="component-caption"><span>{{assessment.AssesmentName}}</span></div>
         <div class="row mt-3">

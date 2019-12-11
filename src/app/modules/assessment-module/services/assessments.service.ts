@@ -12,9 +12,10 @@ import { IAssessmentSubmision } from 'src/app/models/IAssessmentSubmision';
 })
 export class AssessmentServiceService {
   constructor(private http: HttpClient) { }
-  public getAssessmentData(email:string): Observable<IAssessment> {
-    return this.http.get<IAssessment>(`${environment.assessmentURL}/api/Assesment/GetAssesments?UserID=${email}`)
-      .pipe(map((response: IAssessment) => response as IAssessment));
+  public getAssessmentData(email:string): Observable<any> {
+    console.log(email);
+    return this.http.get<any>(`${environment.assessmentURL}/api/Assesment/GetAssesments?UserID=${email}`)
+      .pipe(map((response: any) => response));
   }
 
   public getAssessmentDetailsByID(id: string): Observable<IAssessmentDetails> {
