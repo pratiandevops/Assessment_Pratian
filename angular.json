@@ -33,9 +33,12 @@
                             "output": "./assets/monaco/"
                         }],
                         "styles": [
-                            "node_modules/ngx-toastr/toastr.css"
+                            "node_modules/ngx-toastr/toastr.css",
+                            "node_modules/intro.js/introjs.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/intro.js/intro.js"
+                        ]
                     },
                     "configurations": {
                         "production": {

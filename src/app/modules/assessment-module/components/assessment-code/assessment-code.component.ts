@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { ActivatedRoute, Router } from '@angular/router';
 import {CompilerService} from '../../services/compiler.service';
 import { AssessmentServiceService} from '../../services/assessments.service';
+import * as introJs from 'intro.js/intro.js';
 
 @Component({
   selector: 'app-assessment-code',
@@ -30,6 +31,7 @@ export class AssessmentCodeComponent implements OnInit {
   TotalTestCases = 0;
   isLoading = false;
   counter = 0;
+  isDemoMode = false;
 
   ngOnInit() {
     this.landingModal.nativeElement.click();
@@ -38,7 +40,34 @@ export class AssessmentCodeComponent implements OnInit {
     // });
   }
 
+  startDemo() {
+    this.isDemoMode = true;
+    const intro = introJs();
+    intro.onexit(() => {
+      this.landingModal.nativeElement.click();
+      this.isDemoMode = false;
+    });
+    this.question = {
+      AssesmentName:'Hello World',
+      Description: 'Write a program to print Hello World'
+    }
+    this.code = `using System;                
+    namespace HelloWorldApp
+    {                        
+        class Praleso
+        {
+            static void Main(string[] args)
+            {
+                 Console.WriteLine("Hello World");
+                
+            }   
+        }
+    }`;
+    intro.start();
+  }
+
   getQuestionDetails(id){
+    this.code ='';
     this.isLoading = true;
     this.assessmentService.getAssessmentDetailsByID(id).subscribe((data) => {
       this.question = data[0];
