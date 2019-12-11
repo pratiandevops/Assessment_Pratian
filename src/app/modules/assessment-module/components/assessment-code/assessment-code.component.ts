@@ -24,56 +24,54 @@ export class AssessmentCodeComponent implements OnInit {
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
-  code: string;
+  code = `using System;
+  namespace HelloWorldApp
+  {
+      class Praleso
+      {
+          static void Main(string[] args)
+          {
+               Console.WriteLine("Hello World");
+          }
+      }
+  }`;
   output: string[] = [];
-  question: any = {};
+  question: any = {
+    AssesmentName: 'Hello World',
+    Description: 'Write a program to print Hello World'
+  };
   NumberOfTestCasesPassed = 0;
   TotalTestCases = 0;
   isLoading = false;
   counter = 0;
-  isDemoMode = false;
+  isCodeSubmitted = false;
 
   ngOnInit() {
-    this.landingModal.nativeElement.click();
+  this.landingModal.nativeElement.click();
     // this.compilerService.getAllLanguages().subscribe((data) => {
     //   this.languages = data;
     // });
+    window.onbeforeunload = function(event) {
+      event.returnValue = 'Your custom message.';
+    };
   }
 
   startDemo() {
-    this.isDemoMode = true;
     const intro = introJs();
     intro.onexit(() => {
       this.landingModal.nativeElement.click();
-      this.isDemoMode = false;
     });
-    this.question = {
-      AssesmentName:'Hello World',
-      Description: 'Write a program to print Hello World'
-    }
-    this.code = `using System;                
-    namespace HelloWorldApp
-    {                        
-        class Praleso
-        {
-            static void Main(string[] args)
-            {
-                 Console.WriteLine("Hello World");
-                
-            }   
-        }
-    }`;
     intro.start();
   }
 
-  getQuestionDetails(id){
-    this.code ='';
+  getQuestionDetails(id) {
     this.isLoading = true;
     this.assessmentService.getAssessmentDetailsByID(id).subscribe((data) => {
       this.question = data[0];
       this.startTimer(this.question.TimeInMinutes * 60);
       this.TotalTestCases = this.question.TestValues.length;
       this.isLoading = false;
+      this.code ='';
     });
   }
 
@@ -81,7 +79,7 @@ export class AssessmentCodeComponent implements OnInit {
     this.editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
   }
 
-  startTimer(counter){
+  startTimer(counter) {
       const counterInterval: any = setInterval(() => {
       this.currentTime = this.convertSecToClock(counter);
       if (counter === -1) {
@@ -93,6 +91,7 @@ export class AssessmentCodeComponent implements OnInit {
       this.counter = counter;
     }, 1000);
   }
+
 
   async runTestCases() {
     this.NumberOfTestCasesPassed = 0;
@@ -113,46 +112,10 @@ export class AssessmentCodeComponent implements OnInit {
            }
         ]
     }).subscribe((data) => {
-      console.log(data);
       this.printOutput(data, element);
       this.isLoading = false;
     });
   }
-
-  // async runTestCase(element) {
-  //   switch(this.selectedLanguage) {
-  //     case 'cpp': {
-  //       (async (element) => {
-  //         const data = await this.compilerService.ccompiler(this.code, element.Inputs).toPromise();
-  //         this.printOutput(data, element);
-  //       })(element);
-  //       break;
-  //     }
-  //     case 'csharp':{
-  //       (async (element) => {
-  //         const data = await this.compilerService.csharpcompiler(this.code, element.Inputs).toPromise();
-  //         this.printOutput(data, element);
-  //       })(element);
-  //       break;
-  //     }
-  //     case 'java':{
-  //       (async (element) => {
-  //         const data = await this.compilerService.jcompiler(this.code, element.Inputs).toPromise();
-  //         this.printOutput(data, element);
-  //       })(element);
-  //       break;
-  //     }
-  //     case 'python':{
-  //       (async (element) => {
-  //         const data = await this.compilerService.pcompiler(this.code, element.Inputs).toPromise();
-  //         this.printOutput(data, element);
-  //       })(element);
-  //     }
-  //   }
-  // }
-
-
-
 
   printOutput(output, element) {
     if (output.error !== '') {
@@ -171,6 +134,10 @@ export class AssessmentCodeComponent implements OnInit {
     }
   }
 
+  confirmSubmisionCode(){
+    this.submissionModal.nativeElement.click();
+  }
+
   submitCode() {
     this.isLoading = true;
     this.assessmentService.submitAssessment({
@@ -178,6 +145,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
+      SubmittedCode: this.code,
       Factor: (parseFloat('1') / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
@@ -193,11 +161,12 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
+      SubmittedCode: this.code,
       Factor: (parseFloat(this.counter.toString()) / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
-      this.submissionModal.nativeElement.click();
+      this.isCodeSubmitted = true;
     });
   }
 

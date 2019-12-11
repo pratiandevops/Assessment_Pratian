@@ -5,4 +5,5 @@ export interface IAssessmentSubmision{
     AssesmentKey: string;
     UserUniqueID: string;
     Factor: string;
+    SubmittedCode: string;
 }

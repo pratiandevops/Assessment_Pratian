@@ -25,7 +25,7 @@
             </div>
             <div class="code-footer">
                     <button data-intro="Click here to run test cases" data-position="left" class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
-                    <button data-disable-interaction="true" data-position="left" *ngIf="isDemoMode || (NumberOfTestCasesPassed>0 && TotalTestCases>0)" data-position="left" data-intro="Click here to submit the code" (click)="submitCodeOnClick()" class="btn btn-sm btn-success">Submit Code</button>
+                    <button data-disable-interaction="true" data-position="left" data-position="left" data-intro="Click here to submit the code" (click)="confirmSubmisionCode()" class="btn btn-sm btn-success">Submit Code</button>
             </div>
             <div class="code-testcase">
                 <div class="output-terminal" data-intro="Output terminal" data-position="left">
@@ -40,7 +40,7 @@
 </div>
 
 
-  <div class="modal fade" id="landingModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal" id="landingModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" (click)="startDemo()" data-dismiss="modal">Demo</button>          
+          <button type="button" class="btn btn-warning" (click)="startDemo()" data-dismiss="modal">Demo</button>          
           <button type="button" class="btn btn-success" (click)="closeLandingModal()" data-dismiss="modal">Start Assessment</button>          
         </div>
       </div>
@@ -77,9 +77,9 @@
 
 
   
-  <div class="modal fade" id="submissionModal" tabindex="-1" role="dialog" aria-labelledby="congratulationModalTitle" aria-hidden="true">
+  <div class="modal" id="submissionModal" tabindex="-1" role="dialog" aria-labelledby="congratulationModalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content" *ngIf="isCodeSubmitted">
         <div class="modal-header">
           <h5 class="modal-title" id="submissionModalTitle">Congratulations</h5>
         </div>
@@ -90,6 +90,18 @@
           <button type="button" class="btn btn-success" (click)="closeAssessment()" data-dismiss="modal">Close Assessment</button>          
         </div>
       </div>
+      <div class="modal-content" *ngIf="!isCodeSubmitted">
+          <div class="modal-header">
+            <h5 class="modal-title" id="submissionConModalTitle">Confirmation</h5>
+          </div>
+          <div class="modal-body">
+              Are you sure, you want to submit code?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning"  data-dismiss="modal">No</button>          
+            <button type="button" class="btn btn-success" (click)="submitCodeOnClick()">Yes</button>          
+          </div>
+        </div>
     </div>
   </div>
 
@@ -97,8 +109,9 @@
     Launch demo modal
   </button>
 
+
   <!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
