@@ -438,3 +438,48 @@
         margin-bottom: 30px;
     }
 }
+
+.align-center {
+    text-align: center!important;
+}
+
+.inclusive-icon {
+    margin-top: -1rem;
+}
+
+.dashboard-badges {
+    padding: 2rem;
+}
+
+.badge-content {
+    padding: 2rem;
+    height: 20rem;
+    box-shadow: 0 6px 34px 0 rgba(197, 220, 255, .6);
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: -webkit-transform .25s ease;
+    transition: transform .25s ease;
+    transition: transform .25s ease, -webkit-transform .25s ease;
+    transition: transform .25s ease, -webkit-transform .25s ease;
+}
+
+.badge-logo {
+    text-align: center;
+}
+
+.badge-header {
+    padding: 1rem;
+    font-family: exo;
+    text-align: center;
+    font-size: x-large;
+    color: #23669a;
+}
+
+.badge-desc {
+    font-family: exo;
+    text-align: center;
+    color: #23669a;
+    padding: 0 3rem;
+    font-size: smaller;
+}

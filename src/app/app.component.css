@@ -4,7 +4,7 @@
 }
 
 ul li a {
-    font-size: 0.85rem;
+    font-size: 1.5rem;
 }
 
 
@@ -15,4 +15,6 @@ ul li a {
 
 .navbar {
     background: linear-gradient(to left, #414960 41%, rgba(65, 73, 96, 0.63) 74%, #fff 88%);
+    padding-left: 15px !important;
+    padding-right: 15px !important;
 }
