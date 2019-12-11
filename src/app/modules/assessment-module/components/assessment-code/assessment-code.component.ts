@@ -44,13 +44,16 @@ export class AssessmentCodeComponent implements OnInit {
   TotalTestCases = 0;
   isLoading = false;
   counter = 0;
-  id:any;
+  isCodeSubmitted = false;
 
   ngOnInit() {
-    this.landingModal.nativeElement.click();
+  this.landingModal.nativeElement.click();
     // this.compilerService.getAllLanguages().subscribe((data) => {
     //   this.languages = data;
     // });
+    window.onbeforeunload = function(event) {
+      event.returnValue = 'Your custom message.';
+    };
   }
 
   startDemo() {
@@ -61,14 +64,14 @@ export class AssessmentCodeComponent implements OnInit {
     intro.start();
   }
 
-  getQuestionDetails(id){
-    this.code = this.getCodeFromLocalStorage(id);
+  getQuestionDetails(id) {
     this.isLoading = true;
     this.assessmentService.getAssessmentDetailsByID(id).subscribe((data) => {
       this.question = data[0];
       this.startTimer(this.question.TimeInMinutes * 60);
       this.TotalTestCases = this.question.TestValues.length;
       this.isLoading = false;
+      this.code ='';
     });
   }
 
@@ -76,7 +79,7 @@ export class AssessmentCodeComponent implements OnInit {
     this.editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
   }
 
-  startTimer(counter){
+  startTimer(counter) {
       const counterInterval: any = setInterval(() => {
       this.currentTime = this.convertSecToClock(counter);
       if (counter === -1) {
@@ -86,27 +89,9 @@ export class AssessmentCodeComponent implements OnInit {
       }
       counter--;
       this.counter = counter;
-      if(counter % 10 === 0){
-        this.storeCodeInLocal();
-      }
     }, 1000);
   }
 
-  storeCodeInLocal() {
-    sessionStorage.setItem('code', JSON.stringify({
-      id: this.id,
-      code: this.code
-    }));
-  }
-
-  getCodeFromLocalStorage(id) {
-    const cashedCode = JSON.parse(sessionStorage.getItem('code'));
-    if(id == cashedCode.id) {
-      return cashedCode.code;
-    } else {
-      return '';
-    }
-  }
 
   async runTestCases() {
     this.NumberOfTestCasesPassed = 0;
@@ -149,6 +134,10 @@ export class AssessmentCodeComponent implements OnInit {
     }
   }
 
+  confirmSubmisionCode(){
+    this.submissionModal.nativeElement.click();
+  }
+
   submitCode() {
     this.isLoading = true;
     this.assessmentService.submitAssessment({
@@ -177,7 +166,7 @@ export class AssessmentCodeComponent implements OnInit {
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
-      this.submissionModal.nativeElement.click();
+      this.isCodeSubmitted = true;
     });
   }
 
@@ -187,9 +176,9 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   closeLandingModal() {
-    this.id = this.aRouter.snapshot.paramMap.get('id');
+    const id = this.aRouter.snapshot.paramMap.get('id');
     this.landingModal.nativeElement.click();
-    this.getQuestionDetails(this.id);
+    this.getQuestionDetails(id);
   }
 
   convertSecToClock(totalSeconds) {
