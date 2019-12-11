@@ -26,6 +26,7 @@ export class AssessmentHomeComponent implements OnInit {
     });
     this.assessmentServiceService.getAssessmentData(this.email).subscribe(data => {
       this.assessments = data;
+      console.log(this.assessments);
     });
   }
 
