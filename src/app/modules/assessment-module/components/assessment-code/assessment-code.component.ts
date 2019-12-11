@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { ActivatedRoute, Router } from '@angular/router';
 import {CompilerService} from '../../services/compiler.service';
 import { AssessmentServiceService} from '../../services/assessments.service';
+import * as introJs from 'intro.js/intro.js';
 
 @Component({
   selector: 'app-assessment-code',
@@ -19,7 +20,7 @@ export class AssessmentCodeComponent implements OnInit {
     @ViewChild('landingModal', {static: true}) landingModal: ElementRef;
     @ViewChild('submissionModal', {static: true}) submissionModal: ElementRef;
 
-  languages = [{name: 'csharp', extn: 'cs'},{name:'cpp',extn:'cpp'} ,{name:'java',extn:'java'},{name:'python',extn:'py'}];
+  languages = [{name: 'csharp', extn: 'cs'}, {name: 'cpp', extn: 'cpp'}, {name: 'java', extn: 'java'}, {name: 'python', extn: 'py'}];
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
@@ -29,6 +30,8 @@ export class AssessmentCodeComponent implements OnInit {
   NumberOfTestCasesPassed = 0;
   TotalTestCases = 0;
   isLoading = false;
+  counter = 0;
+  isDemoMode = false;
 
   ngOnInit() {
     this.landingModal.nativeElement.click();
@@ -37,7 +40,34 @@ export class AssessmentCodeComponent implements OnInit {
     // });
   }
 
+  startDemo() {
+    this.isDemoMode = true;
+    const intro = introJs();
+    intro.onexit(() => {
+      this.landingModal.nativeElement.click();
+      this.isDemoMode = false;
+    });
+    this.question = {
+      AssesmentName:'Hello World',
+      Description: 'Write a program to print Hello World'
+    }
+    this.code = `using System;                
+    namespace HelloWorldApp
+    {                        
+        class Praleso
+        {
+            static void Main(string[] args)
+            {
+                 Console.WriteLine("Hello World");
+                
+            }   
+        }
+    }`;
+    intro.start();
+  }
+
   getQuestionDetails(id){
+    this.code ='';
     this.isLoading = true;
     this.assessmentService.getAssessmentDetailsByID(id).subscribe((data) => {
       this.question = data[0];
@@ -60,6 +90,7 @@ export class AssessmentCodeComponent implements OnInit {
         this.currentTime = this.convertSecToClock(0);
       }
       counter--;
+      this.counter = counter;
     }, 1000);
   }
 
@@ -82,6 +113,7 @@ export class AssessmentCodeComponent implements OnInit {
            }
         ]
     }).subscribe((data) => {
+      console.log(data);
       this.printOutput(data, element);
       this.isLoading = false;
     });
@@ -146,6 +178,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
+      Factor: (parseFloat('1') / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
@@ -160,6 +193,7 @@ export class AssessmentCodeComponent implements OnInit {
       NumberOfTestCasesGiven: this.TotalTestCases,
       AssesmentID: this.question.AssesmentID,
       AssesmentKey: '',
+      Factor: (parseFloat(this.counter.toString()) / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
       UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;

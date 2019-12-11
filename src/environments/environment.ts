@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  compilerURL:'http://localhost:2501',
-  assessmentURL:'http://172.30.11.7:8099/'
+  compilerURL:'http://172.30.11.191:2599',
+  assessmentURL:'http://172.30.11.7:8099'
 };
 
 /*

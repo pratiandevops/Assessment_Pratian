@@ -1,6 +1,6 @@
 <div class="code-container">
     <div class="code-body">
-        <div class="code-statement-con">
+        <div class="code-statement-con" data-intro="Problem statement" data-position="right">
             <div class="code-title">
                     {{question.AssesmentName}}
             </div>
@@ -16,19 +16,19 @@
                             <option *ngFor="let item of languages" [value]="item.name">{{item.name}}</option>
                         </select>
                 </div>
-                <div>
+                <div data-intro="Timer" data-position="left">
                     {{currentTime}}
                 </div>
             </form>
-            <div class="code-editor">
+            <div class="code-editor" data-intro="Code console" data-position="left">
                 <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
             </div>
             <div class="code-footer">
-                    <button class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
-                    <button *ngIf="NumberOfTestCasesPassed==TotalTestCases && TotalTestCases>0" (click)="submitCodeOnClick()" class="btn btn-sm btn-success">Submit Code</button>
+                    <button data-intro="Click here to run test cases" data-position="left" class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
+                    <button data-disable-interaction="true" data-position="left" *ngIf="isDemoMode || (NumberOfTestCasesPassed>0 && TotalTestCases>0)" data-position="left" data-intro="Click here to submit the code" (click)="submitCodeOnClick()" class="btn btn-sm btn-success">Submit Code</button>
             </div>
             <div class="code-testcase">
-                <div class="output-terminal">
+                <div class="output-terminal" data-intro="Output terminal" data-position="left">
                     <div *ngFor="let item of output">
                         > {{item}}
                     </div>
@@ -39,27 +39,6 @@
     </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Times Up</h5>
-        </div>
-        <div class="modal-body">
-            Sorry, you have taken more time than expected. Try again later.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeAssessment()" data-dismiss="modal">Close Assessment</button>          
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <button type="button" #openModal data-backdrop="static" data-keyboard="false" id="openModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-    Launch demo modal
-  </button>
 
   <div class="modal fade" id="landingModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -85,6 +64,7 @@
             </div>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="startDemo()" data-dismiss="modal">Demo</button>          
           <button type="button" class="btn btn-success" (click)="closeLandingModal()" data-dismiss="modal">Start Assessment</button>          
         </div>
       </div>
@@ -94,11 +74,10 @@
   <button type="button" #landingModal data-backdrop="static" data-keyboard="false" id="openlandingModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#landingModalLong">
     Launch demo modal
   </button>
-  <div class="loading" *ngIf="isLoading">
-    <div class="spinner-border text-warning"></div>
-  </div>
+
+
   
-  <div class="modal fade" id="submissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal fade" id="submissionModal" tabindex="-1" role="dialog" aria-labelledby="congratulationModalTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -117,3 +96,29 @@
   <button type="button" #submissionModal data-backdrop="static" data-keyboard="false" id="submissionModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#submissionModal">
     Launch demo modal
   </button>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Times Up</h5>
+      </div>
+      <div class="modal-body">
+          Sorry, you have taken more time than expected. Try again later.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeAssessment()" data-dismiss="modal">Close Assessment</button>          
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" #openModal data-backdrop="static" data-keyboard="false" id="openModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Launch demo modal
+</button>
+
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner-border text-warning"></div>
+  </div>
+  

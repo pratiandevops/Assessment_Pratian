@@ -24,7 +24,7 @@ pipeline{
 				}
 				steps{
 					echo 'Executing Build'
-					//sh 'npm install --save-dev @angular-devkit/build-angular'
+					sh 'npm install --save-dev @angular-devkit/build-angular'
 					sh 'ng build --prod'
 					sh 'docker-compose -p $registry build'
 				}
@@ -66,7 +66,7 @@ pipeline{
 				sh 'docker-compose stop'
 				echo 'Container Stopped'
 				echo 'Starting New Updated Container'
-				sh 'docker-compose up -d'
+				sh 'docker-compose up --no-build -d'
 				echo 'Container is Up and Running'
 			}
 		}
