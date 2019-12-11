@@ -24,14 +24,27 @@ export class AssessmentCodeComponent implements OnInit {
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
   editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
-  code: string;
+  code = `using System;                
+  namespace HelloWorldApp
+  {                        
+      class Praleso
+      {
+          static void Main(string[] args)
+          {
+               Console.WriteLine("Hello World");
+              
+          }   
+      }
+  }`;
   output: string[] = [];
-  question: any = {};
+  question: any = {
+    AssesmentName:'Hello World',
+    Description: 'Write a program to print Hello World'
+  };
   NumberOfTestCasesPassed = 0;
   TotalTestCases = 0;
   isLoading = false;
   counter = 0;
-  isDemoMode = false;
 
   ngOnInit() {
     this.landingModal.nativeElement.click();
@@ -41,28 +54,10 @@ export class AssessmentCodeComponent implements OnInit {
   }
 
   startDemo() {
-    this.isDemoMode = true;
     const intro = introJs();
     intro.onexit(() => {
       this.landingModal.nativeElement.click();
-      this.isDemoMode = false;
     });
-    this.question = {
-      AssesmentName:'Hello World',
-      Description: 'Write a program to print Hello World'
-    }
-    this.code = `using System;                
-    namespace HelloWorldApp
-    {                        
-        class Praleso
-        {
-            static void Main(string[] args)
-            {
-                 Console.WriteLine("Hello World");
-                
-            }   
-        }
-    }`;
     intro.start();
   }
 
