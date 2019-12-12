@@ -28,7 +28,7 @@ export class AuthenticationService {
         return this.http.get<any>(`${environment.assessmentURL}/api/User?Email=${username}&Password=${password}`)
             .pipe(map(user => {
                 if (user) {
-                    sessionStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                     this.toastr.success('Welcome Back !!', user.UserName);
                 }
@@ -44,7 +44,7 @@ export class AuthenticationService {
         return this.http.post<any>(`${environment.assessmentURL}/api/User`, data)
             .pipe(map(user => {
                 if (user) {
-                    sessionStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                     this.toastr.success('Welcome !!', user.UserName);
                 }
@@ -56,7 +56,7 @@ export class AuthenticationService {
     }
 
     logout() {
-        sessionStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
         this.toastr.warning('logged out successfull');
     }
