@@ -114,6 +114,12 @@ export class AssessmentCodeComponent implements OnInit {
     }).subscribe((data) => {
       this.printOutput(data, element);
       this.isLoading = false;
+    },(error)=>{
+      this.isLoading = false;
+      let cerror = {
+        error: error.error.message
+      };
+      this.printOutput(cerror,element);
     });
   }
 
