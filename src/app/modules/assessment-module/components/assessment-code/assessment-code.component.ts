@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {CompilerService} from '../../services/compiler.service';
-import { AssessmentServiceService} from '../../services/assessments.service';
+import { CompilerService } from '../../services/compiler.service';
+import { AssessmentServiceService } from '../../services/assessments.service';
 import * as introJs from 'intro.js/intro.js';
 
 @Component({
@@ -16,14 +16,22 @@ export class AssessmentCodeComponent implements OnInit {
     private assessmentService: AssessmentServiceService,
     private router: Router) { }
 
-    @ViewChild('openModal', {static: true}) openModal: ElementRef;
-    @ViewChild('landingModal', {static: true}) landingModal: ElementRef;
-    @ViewChild('submissionModal', {static: true}) submissionModal: ElementRef;
+  @ViewChild('openModal', { static: true }) openModal: ElementRef;
+  @ViewChild('landingModal', { static: true }) landingModal: ElementRef;
+  @ViewChild('submissionModal', { static: true }) submissionModal: ElementRef;
 
-  languages = [{name: 'csharp', extn: 'cs'}, {name: 'cpp', extn: 'cpp'}, {name: 'java', extn: 'java'}, {name: 'python', extn: 'py'}];
+  languages = [{ name: 'csharp', extn: 'cs' }, { name: 'cpp', extn: 'cpp' }, { name: 'java', extn: 'java' }, { name: 'python', extn: 'py' }];
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
-  editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
+  editorOptions = {
+    theme: 'vs-dark',
+    language: this.selectedLanguage,
+    lineHeight: 20,
+    fontSize: 14,
+    wordWrap: 'bounded',
+    automaticLayout: true,
+    wrappingIndent: 'indent'
+  };
   code = `using System;
   namespace HelloWorldApp
   {
@@ -58,7 +66,7 @@ export class AssessmentCodeComponent implements OnInit {
     // this.compilerService.getAllLanguages().subscribe((data) => {
     //   this.languages = data;
     // });
-    window.onbeforeunload = (event) => {
+    window.onbeforeunload = function (event) {
       event.returnValue = 'Your custom message.';
     };
   }
@@ -91,12 +99,17 @@ export class AssessmentCodeComponent implements OnInit {
     });
   }
 
-  changeLanguage(){
-    this.editorOptions = {theme: 'vs-dark', language: this.selectedLanguage};
+  changeLanguage() {
+    this.editorOptions = { theme: 'vs-dark', language: this.selectedLanguage,
+    lineHeight: 20,
+    fontSize: 18,
+    wordWrap: "bounded",
+    automaticLayout: true,
+    wrappingIndent: 'indent' };
   }
 
   startTimer(counter) {
-      const counterInterval: any = setInterval(() => {
+    const counterInterval: any = setInterval(() => {
       this.currentTime = this.convertSecToClock(counter);
       if (counter === -1) {
         this.submitCode();
@@ -148,16 +161,16 @@ export class AssessmentCodeComponent implements OnInit {
       }
   }
 
- runTestCase(element) {
-      this.isLoading = true;
-      this.compilerService.glotCompiler(this.selectedLanguage,
+  runTestCase(element) {
+    this.isLoading = true;
+    this.compilerService.glotCompiler(this.selectedLanguage,
       {
-      stdin: element.Inputs,
-      files: [
+        stdin: element.Inputs,
+        files: [
           {
             name: `main.${this.languages.filter(val => val.name === this.selectedLanguage)[0].extn}`,
             content: this.code
-           }
+          }
         ]
     }).subscribe((data) => {
       this.printOutput(data, element);
@@ -183,7 +196,7 @@ export class AssessmentCodeComponent implements OnInit {
       } else {
         this.output.unshift(`Testcase failed`);
       }
-      if(this.NumberOfTestCasesPassed === this.TotalTestCases){
+      if (this.NumberOfTestCasesPassed === this.TotalTestCases) {
         this.output.unshift(`All ${this.TotalTestCases} Testcases are passed`);
       }
     }
@@ -192,7 +205,7 @@ export class AssessmentCodeComponent implements OnInit {
     }
   }
 
-  confirmSubmisionCode(){
+  confirmSubmisionCode() {
     this.submissionModal.nativeElement.click();
   }
 
