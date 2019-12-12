@@ -6,9 +6,10 @@ import { SalesModuleModule } from './modules/sales-module/sales-module.module';
 import { AssessmentBuilderModuleModule } from './modules/assessment-builder-module/assessment-builder-module.module';
 import { AssessmentModuleModule } from './modules/assessment-module/assessment-module.module';
 import { SharedModulesModule } from './shared-modules/shared-modules.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { InterceptorService } from './shared-modules/services/interceptor.service';
 
 
 @NgModule({
@@ -30,7 +31,13 @@ import { ToastrModule } from 'ngx-toastr';
     }),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: InterceptorService,
+        multi: true
+      }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
