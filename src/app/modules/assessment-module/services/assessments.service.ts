@@ -19,7 +19,7 @@ export class AssessmentServiceService {
   }
 
   public getAssessmentDetailsByID(id: string): Observable<IAssessmentDetails> {
-    return this.http.get<IAssessmentDetails>(`${environment.assessmentURL}/api/Question?AssesmentType=code&AssesmentID=${id}`)
+    return this.http.get<IAssessmentDetails>(`${environment.assessmentURL}/api/Question?AssesmentID=${id}`)
       .pipe(map((response: IAssessmentDetails) => response as IAssessmentDetails));
   }
   

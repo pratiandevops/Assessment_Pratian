@@ -9,7 +9,7 @@ import * as introJs from 'intro.js/intro.js';
   templateUrl: './assessment-code.component.html',
   styleUrls: ['./assessment-code.component.css']
 })
-export class AssessmentCodeComponent implements OnInit {
+export class AssessmentCodeComponent implements OnInit, OnDestroy {
   constructor(
     private aRouter: ActivatedRoute,
     private compilerService: CompilerService,
@@ -20,7 +20,11 @@ export class AssessmentCodeComponent implements OnInit {
   @ViewChild('landingModal', { static: true }) landingModal: ElementRef;
   @ViewChild('submissionModal', { static: true }) submissionModal: ElementRef;
 
-  languages = [{ name: 'csharp', extn: 'cs' }, { name: 'cpp', extn: 'cpp' }, { name: 'java', extn: 'java' }, { name: 'python', extn: 'py' }];
+  languages = [{ name: 'csharp', extn: 'cs' },
+  { name: 'cpp', extn: 'cpp' },
+  { name: 'java', extn: 'java' },
+  { name: 'python', extn: 'py' }];
+
   selectedLanguage = 'csharp';
   currentTime = '00:00:00';
   editorOptions = {
@@ -66,9 +70,17 @@ export class AssessmentCodeComponent implements OnInit {
     // this.compilerService.getAllLanguages().subscribe((data) => {
     //   this.languages = data;
     // });
-    window.onbeforeunload = function (event) {
+    window.addEventListener('beforeunload',(event) => {
       event.returnValue = 'Your custom message.';
-    };
+    });
+    // window.onbeforeunload = (event) => {
+    //   event.returnValue = 'Your custom message.';
+    // };
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload',() => {
+    });
   }
 
   clearConsole() {
@@ -79,7 +91,7 @@ export class AssessmentCodeComponent implements OnInit {
     this.startTimer(this.questionData.TimeInMinutes * 60);
     this.question = this.questionData;
     this.TotalTestCases = this.questionData.TestValues.length;
-    this.code ='';
+    this.code = this.question.DefaultCodeSet.filter(val => val.Language === this.selectedLanguage)[0].DefaultCodeText;
   }
 
   startDemo() {
@@ -96,7 +108,7 @@ export class AssessmentCodeComponent implements OnInit {
       this.questionData = data[0];
       this.isLoading = false;
       this.landingModal.nativeElement.click();
-      if(data[0].submissions.length > 0) {
+      if(data[0].Submissions.length > 0) {
         this.isAssessmentAttended = true;
       }else {
         this.isAssessmentAttended = false;
@@ -108,9 +120,10 @@ export class AssessmentCodeComponent implements OnInit {
     this.editorOptions = { theme: 'vs-dark', language: this.selectedLanguage,
     lineHeight: 20,
     fontSize: 15,
-    wordWrap: "bounded",
+    wordWrap: 'bounded',
     automaticLayout: true,
     wrappingIndent: 'indent' };
+    this.code = this.question.DefaultCodeSet.filter(val => val.Language === this.selectedLanguage)[0].DefaultCodeText;
   }
 
   startTimer(counter) {
