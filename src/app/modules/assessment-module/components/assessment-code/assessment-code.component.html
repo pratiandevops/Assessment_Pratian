@@ -24,8 +24,8 @@
                 <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
             </div>
             <div class="code-footer">
-                    <input type="text" placeholder="Custom Input" [(ngModel)]="customInput" #ctrl="ngModel" style="font-size: 0.8em;"/>
-                    <button data-intro="Click here to clear console" data-position="left" class="btn btn-sm btn-info" style="margin-right: 5px;" (click)="runWithCustomInput()">Run</button>
+                    <input data-intro="Enter custom input here" data-position="left" type="text" placeholder="Custom Input" [(ngModel)]="customInput" #ctrl="ngModel" style="font-size: 0.8em;"/>
+                    <button data-intro="Click here to Run custom inputs" data-position="left" class="btn btn-sm btn-info" style="margin-right: 5px;" (click)="runWithCustomInput()">Run</button>
                     <button data-intro="Click here to clear console" data-position="left" class="btn btn-sm btn-warning" style="margin-right: 5px;" (click)="clearConsole()">Clear Console</button>
                     <button data-intro="Click here to run test cases" data-position="left" class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
                     <button data-disable-interaction="true" data-position="left" data-position="left" data-intro="Click here to submit the code" (click)="confirmSubmisionCode()" class="btn btn-sm btn-success">Submit Code</button>

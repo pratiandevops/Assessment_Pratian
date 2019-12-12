@@ -96,13 +96,18 @@ export class AssessmentCodeComponent implements OnInit {
       this.questionData = data[0];
       this.isLoading = false;
       this.landingModal.nativeElement.click();
+      if(data[0].submissions.length > 0) {
+        this.isAssessmentAttended = true;
+      }else {
+        this.isAssessmentAttended = false;
+      }
     });
   }
 
   changeLanguage() {
     this.editorOptions = { theme: 'vs-dark', language: this.selectedLanguage,
     lineHeight: 20,
-    fontSize: 18,
+    fontSize: 15,
     wordWrap: "bounded",
     automaticLayout: true,
     wrappingIndent: 'indent' };
@@ -129,6 +134,7 @@ export class AssessmentCodeComponent implements OnInit {
       this.runTestCase(element);
     });
   }
+
   runWithCustomInput(){
     this.isLoading = true;
     this.compilerService.glotCompiler(this.selectedLanguage,
@@ -174,7 +180,6 @@ export class AssessmentCodeComponent implements OnInit {
         ]
     }).subscribe((data) => {
       this.printOutput(data, element);
-      
     }, (error) => {
       let cerror = {
         error: error.error.message
@@ -182,7 +187,6 @@ export class AssessmentCodeComponent implements OnInit {
       this.printOutput(cerror, element);
     });
   }
-  
 
   printOutput(output, element) {
     this.ouputCounter++;
