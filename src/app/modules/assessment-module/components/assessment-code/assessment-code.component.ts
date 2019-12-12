@@ -153,7 +153,7 @@ export class AssessmentCodeComponent implements OnInit {
       AssesmentKey: '',
       SubmittedCode: this.code,
       Factor: (parseFloat('1') / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
-      UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
+      UserUniqueID: JSON.parse(localStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
       this.openModal.nativeElement.click();
@@ -169,7 +169,7 @@ export class AssessmentCodeComponent implements OnInit {
       AssesmentKey: '',
       SubmittedCode: this.code,
       Factor: (parseFloat(this.counter.toString()) / parseFloat((this.question.TimeInMinutes * 60).toString())).toString(),
-      UserUniqueID: JSON.parse(sessionStorage.getItem('currentUser')).Email,
+      UserUniqueID: JSON.parse(localStorage.getItem('currentUser')).Email,
     }).subscribe((data) => {
       this.isLoading = false;
       this.isCodeSubmitted = true;
