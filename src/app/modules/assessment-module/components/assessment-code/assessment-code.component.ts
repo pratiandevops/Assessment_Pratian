@@ -46,14 +46,32 @@ export class AssessmentCodeComponent implements OnInit {
   counter = 0;
   isCodeSubmitted = false;
 
+  questionData:any;
+  isAssessmentAttended = false;
+
+  customInput: string;
+  ouputCounter = 0;
+
   ngOnInit() {
-  this.landingModal.nativeElement.click();
+    const id = this.aRouter.snapshot.paramMap.get('id');
+    this.getQuestionDetails(id);
     // this.compilerService.getAllLanguages().subscribe((data) => {
     //   this.languages = data;
     // });
-    window.onbeforeunload = function(event) {
+    window.onbeforeunload = (event) => {
       event.returnValue = 'Your custom message.';
     };
+  }
+
+  clearConsole() {
+    this.output = [];
+  }
+
+  startAssessment() {
+    this.startTimer(this.questionData.TimeInMinutes * 60);
+    this.question = this.questionData;
+    this.TotalTestCases = this.questionData.TestValues.length;
+    this.code ='';
   }
 
   startDemo() {
@@ -67,11 +85,9 @@ export class AssessmentCodeComponent implements OnInit {
   getQuestionDetails(id) {
     this.isLoading = true;
     this.assessmentService.getAssessmentDetailsByID(id).subscribe((data) => {
-      this.question = data[0];
-      this.startTimer(this.question.TimeInMinutes * 60);
-      this.TotalTestCases = this.question.TestValues.length;
+      this.questionData = data[0];
       this.isLoading = false;
-      this.code ='';
+      this.landingModal.nativeElement.click();
     });
   }
 
@@ -95,9 +111,41 @@ export class AssessmentCodeComponent implements OnInit {
 
   async runTestCases() {
     this.NumberOfTestCasesPassed = 0;
+    this.ouputCounter = 0;
     this.question.TestValues.forEach(element => {
       this.runTestCase(element);
     });
+  }
+  runWithCustomInput(){
+    this.isLoading = true;
+    this.compilerService.glotCompiler(this.selectedLanguage,
+      {
+      stdin: this.customInput,
+      files: [
+          {
+            name: `main.${this.languages.filter(val => val.name === this.selectedLanguage)[0].extn}`,
+            content: this.code
+           }
+        ]
+    }).subscribe((data) => {
+      this.printCustomOutput(data);
+      this.isLoading = false;
+    }, (error) => {
+      this.isLoading = false;
+      let cerror = {
+        error: error.error.message
+      };
+      this.printCustomOutput(cerror);
+    });
+  }
+
+  printCustomOutput(output) {
+    if (output.error !== '') {
+      this.output.unshift(output.error);
+    }
+    if (output.stdout) {
+        this.output.unshift(output.stdout);
+      }
   }
 
  runTestCase(element) {
@@ -113,17 +161,18 @@ export class AssessmentCodeComponent implements OnInit {
         ]
     }).subscribe((data) => {
       this.printOutput(data, element);
-      this.isLoading = false;
+      
     }, (error) => {
-      this.isLoading = false;
       let cerror = {
         error: error.error.message
       };
       this.printOutput(cerror, element);
     });
   }
+  
 
   printOutput(output, element) {
+    this.ouputCounter++;
     if (output.error !== '') {
       this.output.unshift(output.error);
     }
@@ -137,6 +186,9 @@ export class AssessmentCodeComponent implements OnInit {
       if(this.NumberOfTestCasesPassed === this.TotalTestCases){
         this.output.unshift(`All ${this.TotalTestCases} Testcases are passed`);
       }
+    }
+    if(this.ouputCounter==this.TotalTestCases){
+      this.isLoading = false;
     }
   }
 
@@ -179,12 +231,6 @@ export class AssessmentCodeComponent implements OnInit {
 
   closeAssessment() {
     this.router.navigate(['/assessment']);
-  }
-
-  closeLandingModal() {
-    const id = this.aRouter.snapshot.paramMap.get('id');
-    this.landingModal.nativeElement.click();
-    this.getQuestionDetails(id);
   }
 
   convertSecToClock(totalSeconds) {

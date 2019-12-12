@@ -24,6 +24,9 @@
                 <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
             </div>
             <div class="code-footer">
+                    <input type="text" placeholder="Custom Input" [(ngModel)]="customInput" #ctrl="ngModel" style="font-size: 0.8em;"/>
+                    <button data-intro="Click here to clear console" data-position="left" class="btn btn-sm btn-info" style="margin-right: 5px;" (click)="runWithCustomInput()">Run</button>
+                    <button data-intro="Click here to clear console" data-position="left" class="btn btn-sm btn-warning" style="margin-right: 5px;" (click)="clearConsole()">Clear Console</button>
                     <button data-intro="Click here to run test cases" data-position="left" class="btn btn-sm btn-primary" style="margin-right: 5px;" (click)="runTestCases()">Run Test Cases</button>
                     <button data-disable-interaction="true" data-position="left" data-position="left" data-intro="Click here to submit the code" (click)="confirmSubmisionCode()" class="btn btn-sm btn-success">Submit Code</button>
             </div>
@@ -42,7 +45,7 @@
 
   <div class="modal" id="landingModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content" *ngIf="!isAssessmentAttended">
         <div class="modal-header">
           <h5 class="modal-title" id="landingModalLongTitle">Instructions</h5>
         </div>
@@ -60,14 +63,26 @@
               4. Assessment has time limit. Before that you should pass all test cases.
             </div>
             <div>
-              5. Do not close the browser window/tab before you submit your final answers. If you do so, we cannot guarantee that your work will be saved
+              <b style="color:red">5. Do not close or reload the browser window/tab before you submit your final answers. If you do so, we cannot guarantee that your work will be saved and you wont be able to attend the same assessment again.</b>
             </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" (click)="startDemo()" data-dismiss="modal">Demo</button>          
-          <button type="button" class="btn btn-success" (click)="closeLandingModal()" data-dismiss="modal">Start Assessment</button>          
+          <button type="button" class="btn btn-success" (click)="startAssessment()" data-dismiss="modal">Start Assessment</button>          
         </div>
       </div>
+      <div class="modal-content" *ngIf="isAssessmentAttended">
+          <div class="modal-header">
+            <h5 class="modal-title" id="landingModalLongTitle">Already Submitted</h5>
+          </div>
+          <div class="modal-body">
+              The assessment has already submitted by you.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" (click)="startDemo()" data-dismiss="modal">Demo</button>          
+            <button type="button" class="btn btn-success" (click)="closeAssessment()" data-dismiss="modal">Close</button>          
+          </div>
+        </div>
     </div>
   </div>
 
