@@ -172,8 +172,8 @@ export class AssessmentCodeComponent implements OnInit, OnDestroy {
   }
 
   printCustomOutput(output) {
-    if (output.error !== '') {
-      this.output.unshift(output.error);
+    if (output.stderr !== '') {
+      this.output.unshift(output.stderr);
     }
     if (output.stdout) {
         this.output.unshift(output.stdout);
