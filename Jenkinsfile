@@ -12,7 +12,7 @@ pipeline{
           stages{
         	stage('Checkout'){
                 	steps{
-				checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'PratianGitHub', url: 'https://github.com/pratiandevops/Assessment_Pratian.git']]])
+				checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'PratianGithubAccount', url: 'https://github.com/pratiandevops/Assessment_Pratian.git']]])
 			}
                 }
                 stage('Build'){
