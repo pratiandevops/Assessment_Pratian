@@ -22,7 +22,7 @@ export class AssessmentCodeComponent implements OnInit, OnDestroy {
 
   languages = [{ name: 'csharp', extn: 'cs' },
   { name: 'cpp', extn: 'cpp' },
-  { name: 'java', extn: 'java' },
+  // { name: 'java', extn: 'java' },  
   { name: 'python', extn: 'py' }];
 
   selectedLanguage = 'csharp';
@@ -50,7 +50,41 @@ export class AssessmentCodeComponent implements OnInit, OnDestroy {
   output: string[] = [];
   question: any = {
     AssesmentName: 'Hello World',
-    Description: 'Write a program to print Hello World'
+    Description: 'Write a program to print Hello World',
+    DefaultCodeSet:[
+      { Language: 'csharp', DefaultCodeText: `using System;
+      namespace HelloWorld csharp
+      {
+          class Praleso
+          {
+              static void Main(string[] args)
+              {
+                   Console.WriteLine("Hello World");
+              }
+          }
+      }` },
+      { Language: 'cpp', DefaultCodeText: `#include <iostream>
+      using namespace std;
+      
+      int main() 
+      {
+          cout << "Hello, World!";
+          return 0;
+      }` },
+      // { Language: 'java', DefaultCodeText: `using System;
+      // namespace HelloWorld java
+      // {
+      //     class Praleso
+      //     {
+      //         static void Main(string[] args)
+      //         {
+      //              Console.WriteLine("Hello World");
+      //         }
+      //     }
+      // }` },
+      { Language: 'python', DefaultCodeText: `print('Hello, world!')` }
+    ]
+
   };
   NumberOfTestCasesPassed = 0;
   TotalTestCases = 0;
