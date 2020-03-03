@@ -27,7 +27,7 @@ Run ng build --prod
 #Nginx Containerization
 FROM nginx:alpine
 
-LABEL author="Santosh Kumar Senapati" 
+LABEL author="vikashkumar" 
 
 # Copy custom nginx config
 COPY ./.docker/nginx.conf /etc/nginx/nginx.conf
