@@ -1,13 +1,13 @@
 <div class="code-container">
     <div class="code-body">
-        <div class="code-statement-con" data-intro="Problem statement" data-position="right">
+        <!-- <div class="code-statement-con" data-intro="Problem statement" data-position="right">
             <div class="code-title">
                     {{question.AssesmentName}}
             </div>
             <div class="code-description">
                 {{question.Description}}
             </div>
-        </div>
+        </div> -->
         <div class="code-editor-con">
             <form class="code-editor-form">
                 <div style="flex:1">
@@ -16,9 +16,9 @@
                             <option *ngFor="let item of languages" [value]="item.name">{{item.name}}</option>
                         </select>
                 </div>
-                <div data-intro="Timer" data-position="left">
+                <!-- <div data-intro="Timer" data-position="left">
                     {{currentTime}}
-                </div>
+                </div> -->
             </form>
             <div class="code-editor" data-intro="Code console" data-position="left">
                 <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
@@ -43,7 +43,7 @@
 </div>
 
 
-  <div class="modal" id="landingModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <!-- <div class="modal" id="landingModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content" *ngIf="!isAssessmentAttended">
         <div class="modal-header">
@@ -88,7 +88,7 @@
 
   <button type="button" #landingModal data-backdrop="static" data-keyboard="false" id="openlandingModalButton" [hidden]="true" class="btn btn-primary" data-toggle="modal" data-target="#landingModalLong">
     Launch demo modal
-  </button>
+  </button> -->
 
 
   

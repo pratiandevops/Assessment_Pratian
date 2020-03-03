@@ -127,16 +127,16 @@ export class AssessmentCodeComponent implements OnInit, OnDestroy {
   }
 
   startTimer(counter) {
-    const counterInterval: any = setInterval(() => {
-      this.currentTime = this.convertSecToClock(counter);
-      if (counter === -1) {
-        this.submitCode();
-        clearInterval(counterInterval);
-        this.currentTime = this.convertSecToClock(0);
-      }
-      counter--;
-      this.counter = counter;
-    }, 1000);
+    // const counterInterval: any = setInterval(() => {
+    //   this.currentTime = this.convertSecToClock(counter);
+    //   if (counter === -1) {
+    //     this.submitCode();
+    //     clearInterval(counterInterval);
+    //     this.currentTime = this.convertSecToClock(0);
+    //   }
+    //   counter--;
+    //   this.counter = counter;
+    // }, 1000);
   }
 
 

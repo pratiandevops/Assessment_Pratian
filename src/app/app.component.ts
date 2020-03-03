@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'CodeAssessmet';
   user: IUser;
+  flag:boolean=false;
   constructor(
     private authentication: AuthenticationService,
     private router: Router
