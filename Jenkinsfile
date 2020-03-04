@@ -29,7 +29,7 @@ pipeline{
 						sh 'ng build --prod'
 						echo 'Souce code has been build and build artifacts has been stored in the "dist/" directory'
 						script {
-							nginxImage = sh 'docker-compose -p $registry build'
+							nginxImage = sh 'docker-compose -p $registry:$BUILD_NUMBER build'
 						}
 						
 					//echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
