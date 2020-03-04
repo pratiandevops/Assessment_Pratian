@@ -32,7 +32,7 @@ pipeline{
 					}
 					step {
 						script {
-							nginxImage = docker-compose -p registry + ":$BUILD_NUMBER" build
+							nginxImage = dockercompose.build registry + ":$BUILD_NUMBER"
 						}
 					}
 					//echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
