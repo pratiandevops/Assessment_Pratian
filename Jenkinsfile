@@ -32,6 +32,7 @@ pipeline{
 							echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
 							nginxImage = sh 'docker-compose -p $registry:$BUILD_NUMBER build'
 							echo 'container creation has been done'
+							// trying to check the value of the variable
 							echo "${nginxImage}"
 						}
 				}
