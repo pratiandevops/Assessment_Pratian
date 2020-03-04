@@ -42,7 +42,7 @@ pipeline{
 								//	sh 'docker push $registry:$BUILD_NUMBER'	
                                                                 //}
 								echo 'image $registry:$BUILD_NUMBER has been pushed to dockerHub'
-                                                        }
+                                                        //}
                                                 }
                 }
                 //stage('Remove Unused docker image') {
