@@ -20,10 +20,17 @@ pipeline{
 					expression { params.Build == true }
 				}
 				steps{
-					echo 'Executing Build'
-					sh 'npm install --save-dev @angular-devkit/build-angular'
+					echo 'Executing Build steps'
+					echo 'First installing NPM dependencies'
+					sh 'npm i'
+					echo 'dependencies has been installed'
+					//sh 'npm install --save-dev @angular-devkit/build-angular'
+					echo 'Now building Scouce Code for production build'
 					sh 'ng build --prod'
+					echo 'Souce code has been build and build artifacts has been stored in the "dist/" directory'
+					echo 'Now creating nginx container using docker-compose.yaml file'
 					sh 'docker-compose -p $registry build'
+					echo 'container creation has been done'
 				}
                 }
 		//stage('Push Image to Registory') {
@@ -62,7 +69,7 @@ pipeline{
 				echo 'Stopping Running Container'
 				sh 'docker-compose stop'
 				echo 'Container Stopped'
-				echo 'Starting New Updated Container'
+				echo 'Starting New Updated Container in detached mode'
 				sh 'docker-compose up --no-build -d'
 				echo 'Container is Up and Running'
 			}
