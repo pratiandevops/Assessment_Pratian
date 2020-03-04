@@ -28,12 +28,12 @@ pipeline{
 						echo 'Now building Scouce Code for production build'
 						sh 'ng build --prod'
 						echo 'Souce code has been build and build artifacts has been stored in the "dist/" directory'
-						//script {
-						//	nginxImage = docker-compose.build registry + ":$BUILD_NUMBER"
-						//}
+						script {
+							nginxImage = docker-compose.build $registry + ":$BUILD_NUMBER"
+						}
 						
 					//echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
-					nginxImage = sh 'docker-compose -p $registry build'
+					//nginxImage = sh 'docker-compose -p $registry build'
 					//echo 'container creation has been done'
 				}
                 }
