@@ -20,7 +20,6 @@ pipeline{
 					expression { params.Build == true }
 				}
 				steps{
-					step{
 						echo 'Executing Build steps'
 						echo 'First installing NPM dependencies'
 						sh 'npm i'
@@ -32,7 +31,6 @@ pipeline{
 						script {
 							nginxImage = dockercompose.build registry + ":$BUILD_NUMBER"
 						}
-					}
 						
 					//echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
 					//sh 'docker-compose -p $registry build'
