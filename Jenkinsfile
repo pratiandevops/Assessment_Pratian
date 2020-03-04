@@ -37,7 +37,8 @@ pipeline{
                                                 steps{
                                                         script {
                                                                 docker.withRegistry( '', registryCredential ) {
-                                                                    sh 'docker push $registry:$BUILD_NUMBER'	
+                                                                	sh 'docker tag $registry:$BUILD_NUMBER $registry:$BUILD_NUMBER'
+									sh 'docker push $registry:$BUILD_NUMBER'	
                                                                 }
 								echo 'image $registry:$BUILD_NUMBER has been pushed to dockerHub'
                                                         }
