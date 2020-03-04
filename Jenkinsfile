@@ -15,34 +15,40 @@ pipeline{
 				checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'PratianGithubAccount', url: 'https://github.com/pratiandevops/Assessment_Pratian.git']]])
 			}
                 }
-                stage('Build'){
+                stage('Building Source Code & Creating Image'){
 				when {
 					expression { params.Build == true }
 				}
 				steps{
-					echo 'Executing Build steps'
-					echo 'First installing NPM dependencies'
-					sh 'npm i'
-					echo 'dependencies has been installed'
-					//sh 'npm install --save-dev @angular-devkit/build-angular'
-					echo 'Now building Scouce Code for production build'
-					sh 'ng build --prod'
-					echo 'Souce code has been build and build artifacts has been stored in the "dist/" directory'
-					echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
-					sh 'docker-compose -p $registry build'
-					echo 'container creation has been done'
+					step{
+						echo 'Executing Build steps'
+						echo 'First installing NPM dependencies'
+						sh 'npm i'
+						echo 'dependencies has been installed'
+						//sh 'npm install --save-dev @angular-devkit/build-angular'
+						echo 'Now building Scouce Code for production build'
+						sh 'ng build --prod'
+						echo 'Souce code has been build and build artifacts has been stored in the "dist/" directory'
+					}
+					step {
+						script {
+							nginxImage = docker-compose -p registry + ":$BUILD_NUMBER" build
+						}
+					}
+					//echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
+					//sh 'docker-compose -p $registry build'
+					//echo 'container creation has been done'
 				}
                 }
 		stage('Push Image to Registory') {
                                                 steps{
-							sh 'docker login -u pratiandevops -p J@1matad! docker.io'
-							sh 'docker push $registry:$BUILD_NUMBER'
-                                                        //script {
-                                                          //      docker.withRegistry( '', registryCredential ) {
-								//	sh 'docker push $registry:$BUILD_NUMBER'	
-                                                                //}
+                                                        script {
+                                                                docker.withRegistry( '', registryCredential ) {
+									//sh 'docker push $registry:$BUILD_NUMBER'
+									nginxImage.push()
+                                                                }
 								echo 'image $registry:$BUILD_NUMBER has been pushed to dockerHub'
-                                                        //}
+                                                        }
                                                 }
                 }
                 //stage('Remove Unused docker image') {
