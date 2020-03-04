@@ -33,15 +33,16 @@ pipeline{
 					echo 'container creation has been done'
 				}
                 }
-		//stage('Push Image to Registory') {
-                  //                              steps{
-                                                        //script {
-                                                            //    docker.withRegistry( '', registryCredential ) {
-                                                                  //  sh 'docker push $registry:$BUILD_NUMBER'
-                                                          //      }
-                                                        //}
-                    //                            }
-                //}
+		stage('Push Image to Registory') {
+                                                steps{
+                                                        script {
+                                                                docker.withRegistry( '', registryCredential ) {
+                                                                    sh 'docker push $registry:$BUILD_NUMBER'	
+                                                                }
+								echo 'image $registry:$BUILD_NUMBER has been pushed to dockerHub'
+                                                        }
+                                                }
+                }
                 //stage('Remove Unused docker image') {
                   //                              steps{
                     //                                    sh "docker rmi $registry:$BUILD_NUMBER"
