@@ -30,7 +30,7 @@ pipeline{
 						sh 'ng build --prod'
 						echo 'Souce code has been build and build artifacts has been stored in the "dist/" directory'
 						echo '########started image building'
-						sh "docker-compose -p $registry:$BUILD_NUMBER build"
+						sh "docker-compose build"
 						//script {
 						//	echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
 						//	nginxImage = sh 'docker-compose -p $registry:$BUILD_NUMBER build'
@@ -43,15 +43,15 @@ pipeline{
 		stage('Push Image to Registory') {
                                                 steps{
 							sh "docker tag pratiandevops/nginx:latest pratiandevops/nginx:$BUILD_NUMBER"
-							sh "docker login -u=pratiandevops -p=J@1matad! ${env.REGISTRY_ADDRESS}"
-							sh "docker-compose $registry:$BUILD_NUMBER push"
-                                                        //script {
-                                                         //       docker.withRegistry( '', registryCredential ) {
-									//sh 'docker push $registry:$BUILD_NUMBER'
+							//sh "docker login -u=pratiandevops -p=J@1matad! ${env.REGISTRY_ADDRESS}"
+							//sh "docker-compose $registry:$BUILD_NUMBER push"
+                                                        script {
+                                                                docker.withRegistry( '', registryCredential ) {
+									sh 'docker push $registry:$BUILD_NUMBER'
 							//		nginxImage.push()
-                                                          //      }
+                                                                }
 								echo 'image $registry:$BUILD_NUMBER has been pushed to dockerHub'
-                                                        //}
+                                                        }
                                                 }
                 }
                 //stage('Remove Unused docker image') {
