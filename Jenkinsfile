@@ -84,11 +84,11 @@ pipeline{
 			}
 			steps{
 				echo 'Stopping Running Container'
-				sh 'docker-compose stop'
+				sh 'docker-compose stop -f'
 				echo 'Container Stopped'
 				echo 'Starting New Updated Container in detached mode'
 				//sh 'docker-compose up --no-build -d'
-				sh 'docker-compose start'
+				sh 'docker-compose start -f'
 				echo 'Container is Up and Running'
 			}
 		}
