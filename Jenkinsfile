@@ -47,6 +47,7 @@ pipeline{
 							//sh "docker-compose $registry:$BUILD_NUMBER push"
                                                         script {
                                                                 docker.withRegistry( '', registryCredential ) {
+									sh 'docker login docker.io'
 									sh 'docker push $registry:$BUILD_NUMBER'
 							//		nginxImage.push()
                                                                 }
