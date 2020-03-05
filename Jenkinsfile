@@ -26,13 +26,16 @@ pipeline{
 						sh 'npm i'
 						echo 'dependencies has been installed'
 						//sh 'npm install --save-dev @angular-devkit/build-angular'
-						echo 'Now building Scouce Code for production build'
+						// 'Now building Scouce Code for production build'
+						echo 'Building code'
 						sh 'ng build --prod'
-						echo 'Souce code has been build and build artifacts has been stored in the "dist/" directory'
-						echo '########started image building'
+						// 'Souce code has been build and build artifacts has been stored in the "dist/" directory'
+						echo 'Build completed'
+						echo '########Started Image Creation###############'
+						//Now creating nginx custom image using docker-compose.yaml file
 						sh "docker-compose build"
+						echo '###########Image creation completed##########'
 						//script {
-						//	echo 'Now creating nginx container using docker-compose.yaml file. we also used "-p" to Specify an alternate project name(image name in this case by default it takes directory name)'
 						//	nginxImage = sh 'docker-compose -p $registry:$BUILD_NUMBER build'
 						//	echo 'container creation has been done'
 							// trying to check the value of the variable
@@ -42,27 +45,28 @@ pipeline{
                 }
 		stage('Push Image to Registory') {
                                                 steps{
+							// Tagging the image we created 
 							sh "docker tag $registry:latest $registry:$BUILD_NUMBER"
-							//sh "docker login -u=pratiandevops -p=J@1matad! ${env.REGISTRY_ADDRESS}"
-							//sh "docker-compose $registry:$BUILD_NUMBER push"
                                                         script {
                                                                 docker.withRegistry( '', registryCredential ) {
+									echo 'pushing image to repository'
+									// with below command we loggingin into dockerhub	
 									sh 'docker login docker.io'
+									// pushing generated image into dockerhub
 									sh 'docker push $registry:$BUILD_NUMBER'
-							//		nginxImage.push()
                                                                 }
-								echo 'image $registry:$BUILD_NUMBER has been pushed to dockerHub'
+								echo 'image ${registry:$BUILD_NUMBER} has been pushed to dockerHub'
                                                         }
                                                 }
                 }
-                //stage('Remove Unused docker image') {
-                  //                              steps{
-                    //                                    sh "docker rmi $registry:$BUILD_NUMBER"
-                      //                          }
-                //}
+                stage('Remove Unused docker image') {
+                                                steps{
+                                                        sh "docker rmi $registry:$BUILD_NUMBER"
+                                                }
+                }
                 //stage('Artifactory'){
 		//			echo 'Creating Artifacts'
-		//			archiveArtifacts ''
+		//			archiveArtifacts 'dist/'
 		//}
        		stage('Approval'){
 			when {
