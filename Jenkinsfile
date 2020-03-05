@@ -87,7 +87,8 @@ pipeline{
 				sh 'docker-compose stop'
 				echo 'Container Stopped'
 				echo 'Starting New Updated Container in detached mode'
-				sh 'docker-compose up --no-build -d'
+				//sh 'docker-compose up --no-build -d'
+				sh 'docker-compose start'
 				echo 'Container is Up and Running'
 			}
 		}
