@@ -53,9 +53,9 @@ pipeline{
 									// with below command we loggingin into dockerhub	
 									sh 'docker login docker.io'
 									// pushing generated image into dockerhub
-									sh 'docker push $registry:$BUILD_NUMBER'
+									nginxImage = sh 'docker push $registry:$BUILD_NUMBER'
                                                                 }
-								echo 'image ${registry:$BUILD_NUMBER} has been pushed to dockerHub'
+								echo 'image ${nginxImage} has been pushed to dockerHub'
                                                         }
                                                 }
                 }
