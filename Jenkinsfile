@@ -7,7 +7,7 @@ pipeline{
 	  environment {
                 nginxImage = ''
 		REGISTRY_ADDRESS = "hub.docker.com"
-                registry = "pratiandevops/nginx"
+                registry = "pratiandevops/devops"
                 registryCredential = 'PratianDockerHub'
        	  }
           stages{
@@ -42,7 +42,7 @@ pipeline{
                 }
 		stage('Push Image to Registory') {
                                                 steps{
-							sh "docker tag pratiandevops/nginx:latest pratiandevops/nginx:$BUILD_NUMBER"
+							sh "docker tag $registry:latest $registry:$BUILD_NUMBER"
 							//sh "docker login -u=pratiandevops -p=J@1matad! ${env.REGISTRY_ADDRESS}"
 							//sh "docker-compose $registry:$BUILD_NUMBER push"
                                                         script {
