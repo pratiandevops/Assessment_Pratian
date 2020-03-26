@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  compilerURL:'http://172.30.11.191:2766',
-  assessmentURL:'http://172.30.11.7:8099/'
+  compilerURL:'https://compiler-codeassessment.pratian.com',
+  assessmentURL:'https://account-codeassessment.pratian.com/'
 };
